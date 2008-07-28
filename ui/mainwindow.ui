@@ -1,0 +1,101 @@
+<ui version="4.0" >
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>248</width>
+    <height>379</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Fast Clipboard</string>
+  </property>
+  <property name="windowIcon" >
+   <iconset resource="../res.qrc" >
+    <normaloff>:/images/icon/colors.png</normaloff>:/images/icon/colors.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>37</y>
+     <width>248</width>
+     <height>342</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout" />
+  </widget>
+  <widget class="QMenuBar" name="menubar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>248</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_Fichier" >
+    <property name="title" >
+     <string>&amp;Fichier</string>
+    </property>
+    <addaction name="actionPlus" />
+    <addaction name="actionMoins" />
+    <addaction name="separator" />
+    <addaction name="action_Quitter" />
+   </widget>
+   <widget class="QMenu" name="menuAaaaaa_Affichage" >
+    <property name="title" >
+     <string>&amp;Affichage</string>
+    </property>
+    <addaction name="action_Tray" />
+   </widget>
+   <addaction name="menu_Fichier" />
+   <addaction name="menuAaaaaa_Affichage" />
+  </widget>
+  <widget class="QToolBar" name="toolBar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>25</y>
+     <width>248</width>
+     <height>12</height>
+    </rect>
+   </property>
+   <property name="windowTitle" >
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea" >
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak" >
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <action name="actionPlus" >
+   <property name="text" >
+    <string>&amp;Plus</string>
+   </property>
+  </action>
+  <action name="action_Quitter" >
+   <property name="text" >
+    <string>&amp;Quitter</string>
+   </property>
+  </action>
+  <action name="actionMoins" >
+   <property name="text" >
+    <string>&amp;Moins</string>
+   </property>
+  </action>
+  <action name="action_Tray" >
+   <property name="text" >
+    <string>To &amp;Tray</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="../res.qrc" />
+ </resources>
+ <connections/>
+</ui>
