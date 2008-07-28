@@ -1,0 +1,7 @@
+<RCC>
+  <qresource>
+    <file>images/icon/colors.png</file>
+    <file>images/icon/exit.png</file>
+    <file>images/icon/pencil.png</file>
+  </qresource>
+</RCC>

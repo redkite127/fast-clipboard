@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<fast-clipboard>
+  <item num="1">
+    <titre>Configuration telnet...</titre>
+    <texte>
+
+conf t
+line con 0
+logging synchronous
+exit
+line vty 0 4
+password ww
+no login
+exit
+enable password ww
+exit
+wr
+
+show ip interface brief | include up 
+
+
+</texte>
+  </item>
+  <item num="2">
+    <titre>Titre2</titre>
+    <texte>Texte2</texte>
+  </item>
+  <item num="3">
+    <titre>Titree3</titre>
+    <texte>Texte3</texte>
+  </item>
+  <item num="4">
+    <titre>Titre4</titre>
+    <texte>Texte4</texte>
+  </item>
+  <item num="5">
+    <titre>Titre5</titre>
+    <texte>Texte5</texte>
+  </item>
+</fast-clipboard>
+
