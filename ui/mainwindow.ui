@@ -20,9 +20,9 @@
    <property name="geometry" >
     <rect>
      <x>0</x>
-     <y>37</y>
+     <y>30</y>
      <width>248</width>
-     <height>342</height>
+     <height>349</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout" />
@@ -33,47 +33,42 @@
      <x>0</x>
      <y>0</y>
      <width>248</width>
-     <height>25</height>
+     <height>30</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Fichier" >
     <property name="title" >
      <string>&amp;Fichier</string>
     </property>
-    <addaction name="actionPlus" />
-    <addaction name="actionMoins" />
+    <addaction name="action_Ouvrir" />
+    <addaction name="actionEnregi_strer" />
+    <addaction name="action_Enregistrer_sous" />
     <addaction name="separator" />
     <addaction name="action_Quitter" />
    </widget>
    <widget class="QMenu" name="menuAaaaaa_Affichage" >
     <property name="title" >
-     <string>&amp;Affichage</string>
+     <string>A&amp;ffichage</string>
     </property>
+    <addaction name="action_Plus" />
+    <addaction name="action_Moins" />
+    <addaction name="separator" />
     <addaction name="action_Tray" />
+   </widget>
+   <widget class="QMenu" name="menu_Aide" >
+    <property name="title" >
+     <string>&amp;Aide</string>
+    </property>
+    <addaction name="action_Help" />
+    <addaction name="separator" />
+    <addaction name="actionAbout_Qt" />
+    <addaction name="actionAbout_Fast_Clipboard" />
    </widget>
    <addaction name="menu_Fichier" />
    <addaction name="menuAaaaaa_Affichage" />
+   <addaction name="menu_Aide" />
   </widget>
-  <widget class="QToolBar" name="toolBar" >
-   <property name="geometry" >
-    <rect>
-     <x>0</x>
-     <y>25</y>
-     <width>248</width>
-     <height>12</height>
-    </rect>
-   </property>
-   <property name="windowTitle" >
-    <string>toolBar</string>
-   </property>
-   <attribute name="toolBarArea" >
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak" >
-    <bool>false</bool>
-   </attribute>
-  </widget>
-  <action name="actionPlus" >
+  <action name="action_Plus" >
    <property name="text" >
     <string>&amp;Plus</string>
    </property>
@@ -83,7 +78,7 @@
     <string>&amp;Quitter</string>
    </property>
   </action>
-  <action name="actionMoins" >
+  <action name="action_Moins" >
    <property name="text" >
     <string>&amp;Moins</string>
    </property>
@@ -91,6 +86,39 @@
   <action name="action_Tray" >
    <property name="text" >
     <string>To &amp;Tray</string>
+   </property>
+  </action>
+  <action name="action_Ouvrir" >
+   <property name="checkable" >
+    <bool>false</bool>
+   </property>
+   <property name="text" >
+    <string>&amp;Ouvrir</string>
+   </property>
+  </action>
+  <action name="action_Enregistrer_sous" >
+   <property name="text" >
+    <string>&amp;Enregistrer sous ...</string>
+   </property>
+  </action>
+  <action name="actionEnregi_strer" >
+   <property name="text" >
+    <string>Enregi&amp;strer</string>
+   </property>
+  </action>
+  <action name="action_Help" >
+   <property name="text" >
+    <string>&amp;Help</string>
+   </property>
+  </action>
+  <action name="actionAbout_Qt" >
+   <property name="text" >
+    <string>About &amp;Qt</string>
+   </property>
+  </action>
+  <action name="actionAbout_Fast_Clipboard" >
+   <property name="text" >
+    <string>About &amp;Fast-Clipboard</string>
    </property>
   </action>
  </widget>
