@@ -133,6 +133,8 @@ QString MainWindowImpl::lire(int i, int j)			// i pour la ligne, j pour titre ou
 void MainWindowImpl::on_action_Plus_triggered()
 {
 	addLine(1);
+	
+	return;
 }
 
 void MainWindowImpl::initTray()
@@ -154,6 +156,8 @@ void MainWindowImpl::initTray()
 	sticon->setContextMenu(stmenu); // On assigne le menu contextuel à l'icône de notification
 	
 	sticon->show();
+	
+	return;
 }
 
 void MainWindowImpl::show_hide()

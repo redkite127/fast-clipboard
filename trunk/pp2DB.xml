@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <fast-clipboard>
-  <item num="1">
+  <item>
     <titre>Configuration telnet...</titre>
     <texte>
 
@@ -21,19 +21,19 @@ show ip interface brief | include up
 
 </texte>
   </item>
-  <item num="2">
+  <item>
     <titre>Titre2</titre>
     <texte>Texte2</texte>
   </item>
-  <item num="3">
+  <item>
     <titre>Titree3</titre>
     <texte>Texte3</texte>
   </item>
-  <item num="4">
+  <item>
     <titre>Titre4</titre>
     <texte>Texte4</texte>
   </item>
-  <item num="5">
+  <item>
     <titre>Titre5</titre>
     <texte>Texte5</texte>
   </item>
