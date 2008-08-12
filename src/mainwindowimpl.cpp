@@ -5,7 +5,12 @@ MainWindowImpl::MainWindowImpl( QWidget * parent, Qt::WFlags f) : QMainWindow(pa
 {
 	setupUi(this);
 	
-	this->nombre = 5;
+	this->nombre = 0;
+	
+	// Lecture du fichier (va le charger dans domDocument)
+	QFile *file= new QFile("pp2DB.xml");
+	xmlDoc = new FCxml(file);
+	connect(xmlDoc,SIGNAL(newNode(QString)),this,SLOT(addLine(Qstring)));
 
 	// Quitter le programme par le menu
 	connect(action_Quitter,SIGNAL(triggered()),this,SLOT(close()));
@@ -25,57 +30,59 @@ MainWindowImpl::MainWindowImpl( QWidget * parent, Qt::WFlags f) : QMainWindow(pa
 	//this->centralWidget()->layout()->addItem(vLayout);
 	((QBoxLayout *)this->centralWidget()->layout())->addLayout(vLayout); // Si on ne crée pas cette relation avec le layout parent, les modifications apportées au fils ne se veront pas dans le parent car il ne se repeindra pas
 	((QBoxLayout *)this->centralWidget()->layout())->addStretch();
-	
-	
+
 	// Création d'un certain nombre de ligne
-	addLine(nombre);
+	//addLine(nombre);
+	xmlDoc->lireAll();
+	
 	
 	// Initialisation du System Tray Icon
 	initTray();
 }
 
-void MainWindowImpl::addLine(int nbr)
+void MainWindowImpl::addLine(QString t)
 {
-	// Il faut détacher l'ajout de la ligne et le liage du contenu (qu'on puisse ajouter une ligne sans un contenu directement lier)	
+	nombre++;
+
+	QHBoxLayout *hLayout = new QHBoxLayout();
 	
-	 /*
-	 / Création d'un certain nombre de ligne et connection au signal mapper
-	*/
+	vLayout->addLayout(hLayout);	// Si on ne crée pas cette relation avec le layout parent, les modifications apportées au fils ne se veront pas dans le parent car il ne se repeindra pas
 	
-	for(int i=1; i<=nbr ; i++)
-	{
-		QHBoxLayout *hLayout = new QHBoxLayout();
-		
-		vLayout->addLayout(hLayout);	// Si on ne crée pas cette relation avec le layout parent, les modifications apportées au fils ne se veront pas dans le parent car il ne se repeindra pas
-		
-		QPushButton *button1 = new QPushButton(lire(i,0),centralwidget);
-		
-		QPushButton *button2 = new QPushButton(QIcon(":/images/icon/pencil.png"),QString(""),centralwidget);
-		button2->setMaximumWidth(32);
-		button2->setIconSize(QSize(22,22));
-		
-		hLayout->addWidget(button1);
-		hLayout->addWidget(button2);
-		
-		// Indication du mapping à faire (correspondance objet, information)
-		signalMapper_copy->setMapping(button1,i);
-		signalMapper_edit->setMapping(button2, i);
-		
-		// Lie clicked au mapper
-		connect(button1, SIGNAL(clicked()), signalMapper_copy, SLOT(map()));
-		connect(button2, SIGNAL(clicked()), signalMapper_edit, SLOT(map()));
-		
-	}
+	//QPushButton *button1 = new QPushButton(lire(i,0),centralwidget);
+	QPushButton *button1 = new QPushButton(t,centralwidget);
+	
+	QPushButton *button2 = new QPushButton(QIcon(":/images/icon/pencil.png"),QString(""),centralwidget);
+	button2->setMaximumWidth(32);
+	button2->setIconSize(QSize(22,22));
+	
+	hLayout->addWidget(button1);
+	hLayout->addWidget(button2);
+	
+	// Indication du mapping à faire (correspondance objet, information)
+	signalMapper_copy->setMapping(button1,nombre);
+	signalMapper_edit->setMapping(button2, nombre);
+	
+	// Lie clicked au mapper
+	connect(button1, SIGNAL(clicked()), signalMapper_copy, SLOT(map()));
+	connect(button2, SIGNAL(clicked()), signalMapper_edit, SLOT(map()));
+
 }
 
 void MainWindowImpl::editerX(int i)
 {
+	QStringList r;
+	
 	EditImpl *e = new EditImpl(i ,this);
 	
 	///Bordel XML, c le constucteur de editerX qui doit aller lire !
-	e->titre->setText(lire(i,0));
-	e->texte->insertPlainText(lire(i,1));
+	/*e->titre->setText(lire(i,0));
+	e->texte->insertPlainText(lire(i,1));*/
 	////////
+
+//REFAIRE 
+	r = xmlDoc->lireX(i);
+	e->titre->setText(r.at(0));
+	e->texte->insertPlainText(r.at(1)); // FIXME, verfifier qu'y en a bien 2 sinon crash
 
 	e->show();	
 }
@@ -83,11 +90,11 @@ void MainWindowImpl::editerX(int i)
 void MainWindowImpl::copierX(int i)
 {
 	QClipboard *clipboard = QApplication::clipboard();
-	clipboard->setText(lire(i,1));
+//	clipboard->setText(lire(i,1));
 }
 
 // Refaire ...
-QString MainWindowImpl::lire(int i, int j)			// i pour la ligne, j pour titre ou texte 0=titre 1=texte
+/*QString MainWindowImpl::lire(int i, int j)			// i pour la ligne, j pour titre ou texte 0=titre 1=texte
 {
 	
 	///////////////////////////////////////////
@@ -128,11 +135,11 @@ QString MainWindowImpl::lire(int i, int j)			// i pour la ligne, j pour titre ou
 		
 		return "Error";
 }
-
+*/
 
 void MainWindowImpl::on_action_Plus_triggered()
 {
-	addLine(1);
+//	addLine();
 	
 	return;
 }
