@@ -19,7 +19,8 @@ class FCxml : public QObject
 
 public:
 	//FCxml();
-	FCxml(QFile&);
+	FCxml(QFile*);//refé val ou ptr?
+	void lireAll();
 
 signals:
 	void newNode(QString title);		// On vient de trouver un new item(une config) FIX: reférence, pointeur ou variable?

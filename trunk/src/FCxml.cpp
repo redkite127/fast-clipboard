@@ -2,9 +2,21 @@
 //
 
 
-FCxml::FCxml(QFile& file)
+FCxml::FCxml(QFile* file)
 {
-	loadFile(file);
+	loadFile(*file);
+}
+
+void FCxml::lireAll()
+{
+	// Lecture de tous le fichier xml et envoit un signal pour dire hop j'en ai un ! (envoyer le titre avec au lieu de lire?
+	QStringList r;
+	int i=1;
+	
+	while((r=lireX(i)).at(0)!="$Error")
+	{
+		emit newNode(r.at(0));
+	}
 }
 
 bool FCxml::loadFile(QFile& file)
@@ -33,7 +45,7 @@ QStringList FCxml::lireX(int i)
 	QDomNode noeud = racine.firstChild();	//renvoie la 1ere balise, ici fast-clipboard
 
 
-	while(!noeud.isNull() && i<j)
+	while(!noeud.isNull() && j<i)
 	{
 		item = noeud.toElement();
 		if(item.tagName()=="item" && ++j==i)	// Comme ça on ne compte que le nombre d item
@@ -44,14 +56,14 @@ QStringList FCxml::lireX(int i)
 			//return n.firstChild().toText().data();
 			*/
 			
-			ret << item.childNodes().item(0).firstChild().toText().data()  << item.childNodes().item(0).firstChild().toText().data(); // FIXME : y a pas plus simple Oo
+			ret << item.childNodes().item(0).firstChild().toText().data()  << item.childNodes().item(1).firstChild().toText().data(); // FIXME : y a pas plus simple Oo
 			
 			return ret;
 		}
 		noeud = noeud.nextSibling();
 	}
 	
-	ret << "Error";	
+	ret << "$Error";	
 	
 	return ret;
 }
