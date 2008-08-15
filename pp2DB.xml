@@ -37,5 +37,10 @@ show ip interface brief | include up
     <titre>Titre5</titre>
     <texte>Texte5</texte>
   </item>
+  <item>
+    <titre>Titre6</titre>
+    <texte>Texte6</texte>
+    <r>sqs</r>
+  </item>
 </fast-clipboard>
 

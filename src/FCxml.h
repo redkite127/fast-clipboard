@@ -23,10 +23,10 @@ public:
 	void lireAll();
 
 signals:
-	void newNode(QString title);		// On vient de trouver un new item(une config) FIX: reférence, pointeur ou variable?
+	void newNode(QString);		// On vient de trouver un new item(une config) FIX: reférence, pointeur ou variable?
 
 public slots:
-	bool loadFile(QFile&);	// Slot ou fct public?
+	bool loadFile(QFile*);	// Slot ou fct public?
 	QStringList lireX(int);
 
 private:
