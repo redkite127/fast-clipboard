@@ -3,6 +3,8 @@
 //
 #include <QDialog>
 #include "ui_edit.h"
+
+#include "FCxml.h"
 //
 
 //Le fichier change pas à chaque fois, trouver comment le mettre en "global"? ou pas ?... car c du gaspillage de passer ça en parametre tt le tps
@@ -15,10 +17,11 @@ class EditImpl : public QDialog, public Ui::Edit
 	Q_OBJECT
 
 public:
-	EditImpl(int n, QWidget * parent = 0, Qt::WFlags f = 0 );
+	EditImpl(FCxml* x,int n=1, QWidget * parent = 0, Qt::WFlags f = 0 );
 
 private:
+	void loadItem(); // Comment faire? loadItem(FCxml, int) ou des variables comme fait ici? ...
 	int num;
-	
+	FCxml *xmlDoc;
 };
 #endif

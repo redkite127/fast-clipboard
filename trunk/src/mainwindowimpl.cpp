@@ -8,9 +8,9 @@ MainWindowImpl::MainWindowImpl( QWidget * parent, Qt::WFlags f) : QMainWindow(pa
 	this->nombre = 0;
 	
 	// Lecture du fichier (va le charger dans domDocument)
-	QFile *file= new QFile("pp2DB.xml");
+	QFile *file= new QFile("pp2DB.xml"); //FIXME pas en hard pleaaaaase ! 
 	xmlDoc = new FCxml(file);
-	connect(xmlDoc,SIGNAL(newNode(QString)),this,SLOT(addLine(Qstring)));
+	connect(xmlDoc,SIGNAL(newNode(QString)),this,SLOT(addLine(QString)));
 
 	// Quitter le programme par le menu
 	connect(action_Quitter,SIGNAL(triggered()),this,SLOT(close()));
@@ -33,8 +33,7 @@ MainWindowImpl::MainWindowImpl( QWidget * parent, Qt::WFlags f) : QMainWindow(pa
 
 	// Création d'un certain nombre de ligne
 	//addLine(nombre);
-	xmlDoc->lireAll();
-	
+	xmlDoc->lireAll();	// Va lire le fichier xml et chaque fois qu'il trouvera un item, il enverra un signal à addLine avec le titre en paramètre !
 	
 	// Initialisation du System Tray Icon
 	initTray();
@@ -72,18 +71,12 @@ void MainWindowImpl::editerX(int i)
 {
 	QStringList r;
 	
-	EditImpl *e = new EditImpl(i ,this);
+	EditImpl *e = new EditImpl(xmlDoc, i, this);
 	
 	///Bordel XML, c le constucteur de editerX qui doit aller lire !
 	/*e->titre->setText(lire(i,0));
 	e->texte->insertPlainText(lire(i,1));*/
 	////////
-
-//REFAIRE 
-	r = xmlDoc->lireX(i);
-	e->titre->setText(r.at(0));
-	e->texte->insertPlainText(r.at(1)); // FIXME, verfifier qu'y en a bien 2 sinon crash
-
 	e->show();	
 }
 
