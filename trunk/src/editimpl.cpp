@@ -1,9 +1,14 @@
 #include "editimpl.h"
+
+#include <QMessageBox>
 //
 EditImpl::EditImpl(FCxml * x,int n, QWidget * parent, Qt::WFlags f) : QDialog(parent, f)
 {
 	setupUi(this);
 	this->setModal(true);
+	
+	connect(buttonBox,SIGNAL(accepted()),this,SLOT(accept()));
+	connect(buttonBox,SIGNAL(rejected()),this,SLOT(reject()));
 	
 	//titre->setText(QString("%1").arg(n));
 	
@@ -26,4 +31,15 @@ void EditImpl::loadItem()
 	else
 		titre->setText("Error in the structur of the XML file !");
 }
-//
+
+void EditImpl::accept()
+{
+	//xmlDoc->writeX(2,"t","tt");
+	
+	close();
+}
+
+void EditImpl::reject()
+{
+	exit();
+}

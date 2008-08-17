@@ -18,6 +18,10 @@ class EditImpl : public QDialog, public Ui::Edit
 
 public:
 	EditImpl(FCxml* x,int n=1, QWidget * parent = 0, Qt::WFlags f = 0 );
+	
+private slots:
+	void accept();
+	void reject();
 
 private:
 	void loadItem(); // Comment faire? loadItem(FCxml, int) ou des variables comme fait ici? ...

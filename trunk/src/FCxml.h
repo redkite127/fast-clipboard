@@ -21,6 +21,7 @@ public:
 	//FCxml();
 	FCxml(QFile*);//refé val ou ptr?
 	void lireAll();
+	void save();
 
 signals:
 	void newNode(QString);		// On vient de trouver un new item(une config) FIX: reférence, pointeur ou variable?
@@ -28,8 +29,11 @@ signals:
 public slots:
 	bool loadFile(QFile*);	// Slot ou fct public?
 	QStringList lireX(int);
+	void writeX(int, QString,QString); // si int est pas juste? 
+	int addNode(QString titre="( vide )", QString texte="( vide )");
 
 private:
 	QDomDocument doc;
+	// QFile  et QTextStream here?
 };
 #endif

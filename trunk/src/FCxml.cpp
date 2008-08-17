@@ -1,4 +1,8 @@
 #include "FCxml.h"
+#include <QTextStream>
+#include <QFile>
+
+#include <QDebug>
 //
 
 
@@ -68,6 +72,66 @@ QStringList FCxml::lireX(int i)
 	ret << "$Error";	// Mouais...	
 	
 	return ret;
+}
+
+void FCxml::writeX(int i,QString titre,QString texte)
+{
+	int j=0;
+	QDomElement item, racine = doc.documentElement();	//renvoie la balise racine
+	QDomNode noeud = racine.firstChild();	//renvoie la 1ere balise, ici fast-clipboard
+	
+	while(!noeud.isNull() && j<i)
+	{
+		item = noeud.toElement();
+		if(item.tagName()=="item" && ++j==i)	// Comme ça on ne compte que le nombre d item
+		{
+			item.childNodes().item(0).toElement().text() = titre;
+			item.childNodes().item(1).toElement().text() = texte;
+		}
+		
+		noeud = noeud.nextSibling();
+	}
+	
+	return;
+}
+
+int FCxml::addNode(QString titre,QString texte)
+{
+	  
+	QDomElement item = doc.createElement("item");
+	QDomElement title = doc.createElement("titre");
+	QDomElement text = doc.createElement("texte");
+	
+	text.appendChild(doc.createTextNode(texte));
+	title.appendChild(doc.createTextNode(titre));
+
+	item.appendChild(title);
+	item.appendChild(text);
+	
+	doc.documentElement().appendChild(item);
+	
+	//Ajout d'une ligne avec les boutons :
+	emit newNode(titre);
+
+	save();
+
+	return 0;
+}
+
+void FCxml::save()
+{
+	QFile file( "pp2DB.xml" );
+	if( !file.open( QIODevice::WriteOnly ) )
+		return;
+
+
+
+	QTextStream ts(&file);
+//	ts << doc.toString(4);
+	doc.save(ts,4);
+	file.close();
+	
+	return;
 }
 
 //

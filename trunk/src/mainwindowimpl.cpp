@@ -73,67 +73,23 @@ void MainWindowImpl::editerX(int i)
 	
 	EditImpl *e = new EditImpl(xmlDoc, i, this);
 	
-	///Bordel XML, c le constucteur de editerX qui doit aller lire !
-	/*e->titre->setText(lire(i,0));
-	e->texte->insertPlainText(lire(i,1));*/
-	////////
 	e->show();	
 }
 
 void MainWindowImpl::copierX(int i)
 {
+	QStringList r;
 	QClipboard *clipboard = QApplication::clipboard();
-//	clipboard->setText(lire(i,1));
-}
-
-// Refaire ...
-/*QString MainWindowImpl::lire(int i, int j)			// i pour la ligne, j pour titre ou texte 0=titre 1=texte
-{
 	
-	///////////////////////////////////////////
-	// Bordel de lecture XML ... a réaranger vite fait pour que ça marche
-	QFile file("pp2DB.xml");
-	if (!file.open(QIODevice::ReadOnly))
-		return "Error";
-	if (!doc.setContent(&file))
-	{
-		file.close();
-		return "Error";
-	}
-	file.close();
+	r=xmlDoc->lireX(i);
 	
-
-	QDomNodeList tab;
-	QDomElement item;
-	QDomNode n;
-	QDomElement racine = doc.documentElement();	//renvoie la balise racine
-	QDomNode noeud = racine.firstChild();	//renvoie la 1ere balise, icifast-clipboard
-	///////////////////1ere fin bordel XML
-
-		///////////// suite bordel XML  :
-		
-		
-		while(!noeud.isNull())
-		{
-			item = noeud.toElement();
-			if(item.tagName()=="item"  && item.attribute("num")==QString("%1").arg(i))
-			{
-				tab = item.childNodes();
-				n = tab.item(j);
-				return n.firstChild().toText().data();
-			}
-			noeud = noeud.nextSibling();
-		}
-		//////////////// derniere fin bordel XML
-		
-		return "Error";
+	if(r.size()==2)	//chaque fois verifier que size ok? ...
+		clipboard->setText(r.at(1));
 }
-*/
 
 void MainWindowImpl::on_action_Plus_triggered()
 {
-//	addLine();
-	
+	xmlDoc->addNode();
 	return;
 }
 
