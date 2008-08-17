@@ -1,8 +1,8 @@
-<?xml version="1.0" ?>
+<?xml version='1.0'?>
 <fast-clipboard>
-  <item>
-    <titre>Configuration telnet...</titre>
-    <texte>
+    <item>
+        <titre>Configuration telnet...</titre>
+        <texte>
 
 conf t
 line con 0
@@ -20,27 +20,25 @@ show ip interface brief | include up
 
 
 </texte>
-  </item>
-  <item>
-    <titre>Titre2</titre>
-    <texte>Texte2</texte>
-  </item>
-  <item>
-    <titre>Titree3</titre>
-    <texte>Texte3</texte>
-  </item>
-  <item>
-    <titre>Titre4</titre>
-    <texte>Texte4</texte>
-  </item>
-  <item>
-    <titre>Titre5</titre>
-    <texte>Texte5</texte>
-  </item>
-  <item>
-    <titre>Titre6</titre>
-    <texte>Texte6</texte>
-    <r>sqs</r>
-  </item>
+    </item>
+    <item>
+        <titre>Titre2</titre>
+        <texte>Texte2</texte>
+    </item>
+    <item>
+        <titre>Titree3</titre>
+        <texte>Texte3</texte>
+    </item>
+    <item>
+        <titre>Titre4</titre>
+        <texte>Texte4</texte>
+    </item>
+    <item>
+        <titre>Titre5</titre>
+        <texte>Texte5</texte>
+    </item>
+    <item>
+        <titre>Titre6</titre>
+        <texte>Texte6</texte>
+    </item>
 </fast-clipboard>
-
