@@ -83,15 +83,37 @@ void FCxml::writeX(int i,QString titre,QString texte)
 	while(!noeud.isNull() && j<i)
 	{
 		item = noeud.toElement();
+		qDebug() << j;
 		if(item.tagName()=="item" && ++j==i)	// Comme ça on ne compte que le nombre d item
 		{
 			//item.childNodes().item(0).toElement().text() = titre;
 		//item.childNodes().item(1).toElement().text() = texte;
 			
+			/*
 			QDomText f1;
 			f1.setData(QString("coucou"));
 			item.childNodes().item(1).toElement().appendChild(f1);
-
+			
+			return;
+			*/
+			//QDomElement item = doc.createElement("item");
+			
+			item.removeChild( item.childNodes().item(1));			
+			item.removeChild( item.childNodes().item(0)); // J'aurais pu retirer aussi 2x le 0, car apres avoir retirer le 0 le 1 devient 0 ...
+			QDomElement title = doc.createElement("titre");
+			QDomElement text = doc.createElement("texte");
+			
+			text.appendChild(doc.createTextNode(texte));
+			title.appendChild(doc.createTextNode(titre));
+		
+			item.appendChild(title);
+			item.appendChild(text);
+			
+			//doc.documentElement().appendChild(item);
+			
+			//Ajout d'une ligne avec les boutons :
+		
+	save();
 		}
 		
 		noeud = noeud.nextSibling();

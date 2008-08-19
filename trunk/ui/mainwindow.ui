@@ -86,31 +86,49 @@
    <property name="checkable" >
     <bool>false</bool>
    </property>
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
    <property name="text" >
     <string>&amp;Ouvrir</string>
    </property>
   </action>
   <action name="action_Enregistrer_sous" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
    <property name="text" >
     <string>&amp;Enregistrer sous ...</string>
    </property>
   </action>
   <action name="actionEnregi_strer" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
    <property name="text" >
     <string>Enregi&amp;strer</string>
    </property>
   </action>
   <action name="action_Help" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
    <property name="text" >
     <string>&amp;Help</string>
    </property>
   </action>
   <action name="actionAbout_Qt" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
    <property name="text" >
     <string>About &amp;Qt</string>
    </property>
   </action>
   <action name="actionAbout_Fast_Clipboard" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
    <property name="text" >
     <string>About &amp;Fast-Clipboard</string>
    </property>

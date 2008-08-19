@@ -23,8 +23,14 @@ show ip interface brief | include up
 </texte>
     </item>
     <item>
-        <titre>Titre2</titre>
-        <texte>Texte2</texte>
+        <titre>Configure IP</titre>
+        <texte>
+ip address 10.48.74.121 255.255.254.0
+exit
+ip route 0.0.0.0 0.0.0.0 10.48.74.1
+exit
+wr
+</texte>
     </item>
     <item>
         <titre>Titree3</titre>
