@@ -72,8 +72,25 @@ void MainWindowImpl::editerX(int i)
 	QStringList r;
 	
 	EditImpl *e = new EditImpl(xmlDoc, i, this);
+
+	//connect(e->buttonBox,SIGNAL(accepted()),this,SLOT(acc()));
+	//connect(e->buttonBox,SIGNAL(rejected()),this,SLOT(rej()));
 	
 	e->show();	
+	
+}
+
+void MainWindowImpl::acc()
+{
+	//xmlDoc->writeX(2,"t","tt");
+	qDebug("accept");
+	
+}
+
+void MainWindowImpl::rej()
+{
+	qDebug("cancel");
+//	exit(0);
 }
 
 void MainWindowImpl::copierX(int i)
@@ -119,7 +136,18 @@ void MainWindowImpl::initTray()
 void MainWindowImpl::show_hide()
 {
 	if(this->isHidden())
+	{
+		/*
+		 * void QWidget::activateWindow ()
+		 *
+		 * This function performs the same operation as clicking the mouse on the title bar of a top-level window.
+		 * On X11, the result depends on the Window Manager. If you want to ensure that the window is stacked on top
+		 * as well you should also call raise(). Note that the window must be visible, otherwise activateWindow() has no effect.
+		 */
 		this->show();
+		this->raise();
+		this->activateWindow();
+	}
 	else
 		this->hide();
 		

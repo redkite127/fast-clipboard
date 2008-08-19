@@ -20,8 +20,10 @@ public:
 	EditImpl(FCxml* x,int n=1, QWidget * parent = 0, Qt::WFlags f = 0 );
 	
 private slots:
-	void accept();
-	void reject();
+	//void acc();
+	//void rej();
+	void on_buttonBox_accepted();
+	void on_buttonBox_rejected();
 
 private:
 	void loadItem(); // Comment faire? loadItem(FCxml, int) ou des variables comme fait ici? ...

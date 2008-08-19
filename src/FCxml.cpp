@@ -85,8 +85,13 @@ void FCxml::writeX(int i,QString titre,QString texte)
 		item = noeud.toElement();
 		if(item.tagName()=="item" && ++j==i)	// Comme ça on ne compte que le nombre d item
 		{
-			item.childNodes().item(0).toElement().text() = titre;
-			item.childNodes().item(1).toElement().text() = texte;
+			//item.childNodes().item(0).toElement().text() = titre;
+		//item.childNodes().item(1).toElement().text() = texte;
+			
+			QDomText f1;
+			f1.setData(QString("coucou"));
+			item.childNodes().item(1).toElement().appendChild(f1);
+
 		}
 		
 		noeud = noeud.nextSibling();

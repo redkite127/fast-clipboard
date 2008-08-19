@@ -7,8 +7,8 @@ EditImpl::EditImpl(FCxml * x,int n, QWidget * parent, Qt::WFlags f) : QDialog(pa
 	setupUi(this);
 	this->setModal(true);
 	
-	connect(buttonBox,SIGNAL(accepted()),this,SLOT(accept()));
-	connect(buttonBox,SIGNAL(rejected()),this,SLOT(reject()));
+	//connect(buttonBox,SIGNAL(accepted()),this,SLOT(acc()));
+	//connect(buttonBox,SIGNAL(rejected()),this,SLOT(rej()));
 	
 	//titre->setText(QString("%1").arg(n));
 	
@@ -32,14 +32,27 @@ void EditImpl::loadItem()
 		titre->setText("Error in the structur of the XML file !");
 }
 
-void EditImpl::accept()
+void EditImpl::on_buttonBox_accepted()
 {
-	//xmlDoc->writeX(2,"t","tt");
-	
-	close();
+	//qDebug("auto_connect_ok");
+	xmlDoc->writeX(2,"t","tt");
 }
 
-void EditImpl::reject()
+void EditImpl::on_buttonBox_rejected()
 {
-	exit();
+	
 }
+
+/*
+void EditImpl::acc()
+{
+	//xmlDoc->writeX(2,"t","tt");
+	//qDebug("accept\n\r");
+	
+}
+
+void EditImpl::rej()
+{
+	//qDebug("cancel");
+}
+*/
