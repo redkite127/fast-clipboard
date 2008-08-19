@@ -35,7 +35,7 @@ void EditImpl::loadItem()
 void EditImpl::on_buttonBox_accepted()
 {
 	//qDebug("auto_connect_ok");
-	xmlDoc->writeX(2,"t","tt");
+	xmlDoc->writeX(num,titre->text(),texte->toPlainText());
 }
 
 void EditImpl::on_buttonBox_rejected()

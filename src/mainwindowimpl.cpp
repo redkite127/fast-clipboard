@@ -13,7 +13,7 @@ MainWindowImpl::MainWindowImpl( QWidget * parent, Qt::WFlags f) : QMainWindow(pa
 	connect(xmlDoc,SIGNAL(newNode(QString)),this,SLOT(addLine(QString)));
 
 	// Quitter le programme par le menu
-	connect(action_Quitter,SIGNAL(triggered()),this,SLOT(close()));
+	connect(action_Quitter,SIGNAL(triggered()),this,SLOT(exit_applic()));
 	
 	// Création du signalMapper et connection de son signal mapped au slot désiré : http://doc.trolltech.com/qq/qq10-signalmapper.html
 	signalMapper_edit = new QSignalMapper(this);
@@ -82,7 +82,7 @@ void MainWindowImpl::editerX(int i)
 
 void MainWindowImpl::acc()
 {
-	//xmlDoc->writeX(2,"t","tt");
+	xmlDoc->writeX(2,"t","tt");
 	qDebug("accept");
 	
 }
@@ -110,6 +110,11 @@ void MainWindowImpl::on_action_Plus_triggered()
 	return;
 }
 
+void MainWindowImpl::on_action_Tray_triggered()
+{
+	show_hide();
+}
+
 void MainWindowImpl::initTray()
 {
 	/*
@@ -120,11 +125,18 @@ void MainWindowImpl::initTray()
 	
 	stmenu = new QMenu(this);
 	
-	QAction *aff_cach = new QAction("Afficher",this);				// Crée une action
+	QAction *aff_cach = new QAction("Afficher / Cacher",this);		// Crée une action
 	stmenu->addAction(aff_cach);									// L'ajoute dans un menu
 	stmenu->setDefaultAction(aff_cach);								// Change l'APPARANCE de l'action (en gras) et c'est tout! 
 	connect(aff_cach,SIGNAL(triggered()),this,SLOT(show_hide()));	// Lie l'actionau slot qui affiche/cache la fenêtre principale
+	
+	stmenu->addSeparator();
+	
 	connect(sticon,SIGNAL(activated(QSystemTrayIcon::ActivationReason)),this,SLOT(sticon_dblclicked(QSystemTrayIcon::ActivationReason)));	// Lie au slot qui dit quoi faire quand on double clic sur l'icone
+	
+	QAction *quit = new QAction("Quitter",this);
+	stmenu->addAction(quit);
+	connect(quit,SIGNAL(triggered()),this,SLOT(exit_applic())); //mwouai, ca serait mieux de se baser sur autre chose que le fait que le tray soit la ou pas
 	
 	sticon->setContextMenu(stmenu); // On assigne le menu contextuel à l'icône de notification
 	
@@ -149,16 +161,38 @@ void MainWindowImpl::show_hide()
 		this->activateWindow();
 	}
 	else
-		this->hide();
+		if(this->isMinimized())
+		{
+			this->showNormal();
+			//raise et activate? faire test sous windows
+		}
+		else
+			this->hide();
 		
 	return;
 }
 
 void MainWindowImpl::sticon_dblclicked(QSystemTrayIcon::ActivationReason reason)
 {
-	if(reason == 2)
+	if ( reason == 2 || reason == 3 )
 		this->show_hide();
-	
+
 	return;
+}
+
+void MainWindowImpl::closeEvent(QCloseEvent *event)
+{
+	if (sticon->isVisible()) 
+	{
+		//QMessageBox::information(this, tr("Systray"),tr("The program will keep running in the system tray. To terminate the program,choose <b>Quit</b> in the context menu of the system tray entry."));
+		hide();
+		event->ignore();
+	}
+}
+
+void MainWindowImpl::exit_applic()
+{
+	sticon->hide();
+	this->close();
 }
 //

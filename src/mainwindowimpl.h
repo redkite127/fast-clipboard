@@ -15,6 +15,8 @@
 
 #include <QSystemTrayIcon>
 
+#include <QMessageBox>
+
 #include "FCxml.h"
 //
 class MainWindowImpl : public QMainWindow, public Ui::MainWindow
@@ -25,16 +27,21 @@ public:
 	MainWindowImpl( QWidget * parent = 0, Qt::WFlags f = 0 );
 //	QString lire(int,int);
 
+protected:
+	void closeEvent(QCloseEvent *event);
+
 
 private slots:
 	void on_action_Plus_triggered();
+	void on_action_Tray_triggered();
 	void addLine(QString);
 	void editerX(int);
 	void copierX(int);
 	void show_hide();
 	void sticon_dblclicked(QSystemTrayIcon::ActivationReason);
-		void acc();
+	void acc();
 	void rej();
+	void exit_applic();
 	
 private:
 	// Variables :
