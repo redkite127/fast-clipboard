@@ -33,6 +33,8 @@ private slots:
 	void copierX(int);
 	void show_hide();
 	void sticon_dblclicked(QSystemTrayIcon::ActivationReason);
+		void acc();
+	void rej();
 	
 private:
 	// Variables :
