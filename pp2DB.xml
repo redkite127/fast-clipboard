@@ -13,6 +13,7 @@ password ww
 no login
 exit
 enable password ww
+no service config
 exit
 wr
 
