@@ -2,6 +2,10 @@
 #define EDITIMPL_H
 //
 #include <QDialog>
+
+
+#include <QHostInfo>
+
 #include "ui_edit.h"
 
 #include "FCxml.h"
@@ -24,6 +28,8 @@ private slots:
 	//void rej();
 	void on_buttonBox_accepted();
 	void on_buttonBox_rejected();
+	void on_lookup_clicked();
+	void lookup_result(const QHostInfo &host);
 
 private:
 	void loadItem(); // Comment faire? loadItem(FCxml, int) ou des variables comme fait ici? ...
