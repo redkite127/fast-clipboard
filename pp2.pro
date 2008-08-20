@@ -1,5 +1,5 @@
 TEMPLATE = app
-QT = gui core xml
+QT = gui core xml network
 CONFIG += qt warn_on resources debug
 DESTDIR = bin
 OBJECTS_DIR = build

@@ -43,6 +43,28 @@ void EditImpl::on_buttonBox_rejected()
 	
 }
 
+
+
+// A ranger ailleurs, just testing
+
+void EditImpl::on_lookup_clicked()
+{
+	QHostInfo::lookupHost(titre->text(),this, SLOT(lookup_result(QHostInfo)));
+}
+
+void EditImpl::lookup_result(const QHostInfo &host)
+{
+	if (host.error() != QHostInfo::NoError)
+	{
+		//qDebug() << "Lookup failed:" << host.errorString();
+		texte->setPlainText("Lookup failed");
+		return;
+	}
+	/*
+	foreach (QHostAddress address, host.addresses())
+	qDebug() << "Found address:" << address.toString();*/
+	texte->setPlainText(host.addresses().first().toString());
+}
 /*
 void EditImpl::acc()
 {
