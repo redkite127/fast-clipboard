@@ -14,15 +14,15 @@
   </property>
   <property name="windowIcon" >
    <iconset resource="../res.qrc" >
-    <normaloff>:/images/icon/color.ico</normaloff>:/images/icon/color.ico</iconset>
+    <normaloff>:/images/icon/colors.png</normaloff>:/images/icon/colors.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget" >
    <property name="geometry" >
     <rect>
      <x>0</x>
-     <y>26</y>
+     <y>25</y>
      <width>248</width>
-     <height>353</height>
+     <height>354</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout" />
@@ -33,7 +33,7 @@
      <x>0</x>
      <y>0</y>
      <width>248</width>
-     <height>26</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Fichier" >
