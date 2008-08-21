@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>248</width>
-    <height>379</height>
+    <width>213</width>
+    <height>395</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -21,18 +21,128 @@
     <rect>
      <x>0</x>
      <y>25</y>
-     <width>248</width>
-     <height>354</height>
+     <width>213</width>
+     <height>370</height>
     </rect>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout" />
+   <layout class="QVBoxLayout" name="verticalLayout" >
+    <item>
+     <widget class="QGroupBox" name="groupBox" >
+      <property name="title" >
+       <string>Configurer backbone</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2" >
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2" >
+         <item>
+          <widget class="QLineEdit" name="name" >
+           <property name="text" >
+            <string>Nom</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="BBinterface" >
+           <property name="minimumSize" >
+            <size>
+             <width>60</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize" >
+            <size>
+             <width>60</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text" >
+            <string>Eth 0/0</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout" >
+         <item>
+          <widget class="QLabel" name="lookup_status" >
+           <property name="palette" >
+            <palette>
+             <active>
+              <colorrole role="WindowText" >
+               <brush brushstyle="SolidPattern" >
+                <color alpha="255" >
+                 <red>142</red>
+                 <green>134</green>
+                 <blue>128</blue>
+                </color>
+               </brush>
+              </colorrole>
+             </active>
+             <inactive>
+              <colorrole role="WindowText" >
+               <brush brushstyle="SolidPattern" >
+                <color alpha="255" >
+                 <red>142</red>
+                 <green>134</green>
+                 <blue>128</blue>
+                </color>
+               </brush>
+              </colorrole>
+             </inactive>
+             <disabled>
+              <colorrole role="WindowText" >
+               <brush brushstyle="SolidPattern" >
+                <color alpha="255" >
+                 <red>146</red>
+                 <green>145</green>
+                 <blue>144</blue>
+                </color>
+               </brush>
+              </colorrole>
+             </disabled>
+            </palette>
+           </property>
+           <property name="font" >
+            <font>
+             <pointsize>8</pointsize>
+             <italic>false</italic>
+             <underline>false</underline>
+             <strikeout>false</strikeout>
+             <kerning>true</kerning>
+            </font>
+           </property>
+           <property name="text" >
+            <string>&lt;status></string>
+           </property>
+           <property name="alignment" >
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="textInteractionFlags" >
+            <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="lookup" >
+           <property name="text" >
+            <string>Nom &amp;&amp; IP</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menubar" >
    <property name="geometry" >
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>248</width>
+     <width>213</width>
      <height>25</height>
     </rect>
    </property>
@@ -134,8 +244,46 @@
    </property>
   </action>
  </widget>
+ <tabstops>
+  <tabstop>name</tabstop>
+  <tabstop>BBinterface</tabstop>
+  <tabstop>lookup</tabstop>
+ </tabstops>
  <resources>
   <include location="../res.qrc" />
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>name</sender>
+   <signal>returnPressed()</signal>
+   <receiver>lookup</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>125</x>
+     <y>138</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>156</x>
+     <y>306</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>BBinterface</sender>
+   <signal>returnPressed()</signal>
+   <receiver>lookup</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>196</x>
+     <y>138</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>198</x>
+     <y>291</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

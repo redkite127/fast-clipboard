@@ -36,16 +36,4 @@ wr
         <titre>Titre3</titre>
         <texte>Texte3</texte>
     </item>
-    <item>
-        <titre>Titre4</titre>
-        <texte>Texte4</texte>
-    </item>
-    <item>
-        <titre>Titre5</titre>
-        <texte>Texte5</texte>
-    </item>
-    <item>
-        <titre>Titre6</titre>
-        <texte>Texte6</texte>
-    </item>
 </fast-clipboard>

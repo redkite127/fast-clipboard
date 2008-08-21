@@ -27,16 +27,19 @@ MainWindowImpl::MainWindowImpl( QWidget * parent, Qt::WFlags f) : QMainWindow(pa
 	 * ce new VBox qui grandi quand j'ajoute des boutons dedans, c'est tout.
 	 */
 	vLayout = new QVBoxLayout();
-	//this->centralWidget()->layout()->addItem(vLayout);
 	((QBoxLayout *)this->centralWidget()->layout())->addLayout(vLayout); // Si on ne crée pas cette relation avec le layout parent, les modifications apportées au fils ne se veront pas dans le parent car il ne se repeindra pas
 	((QBoxLayout *)this->centralWidget()->layout())->addStretch();
 
 	// Création d'un certain nombre de ligne
-	//addLine(nombre);
 	xmlDoc->lireAll();	// Va lire le fichier xml et chaque fois qu'il trouvera un item, il enverra un signal à addLine avec le titre en paramètre !
 	
 	// Initialisation du System Tray Icon
 	initTray();
+	
+	// Auto-selection du texte lors du clic sur un LineEdit
+	//connect(name,SIGNAL(clicked()),name,SLOT(selectAll()));
+	//connect(BBinterface,SIGNAL(clicked()),BBinterface,SLOT(selectAll()));
+	
 }
 
 void MainWindowImpl::addLine(QString t)
@@ -47,7 +50,6 @@ void MainWindowImpl::addLine(QString t)
 	
 	vLayout->addLayout(hLayout);	// Si on ne crée pas cette relation avec le layout parent, les modifications apportées au fils ne se veront pas dans le parent car il ne se repeindra pas
 	
-	//QPushButton *button1 = new QPushButton(lire(i,0),centralwidget);
 	QPushButton *button1 = new QPushButton(t,centralwidget);
 	
 	QPushButton *button2 = new QPushButton(QIcon(":/images/icon/pencil.png"),QString(""),centralwidget);
@@ -76,21 +78,8 @@ void MainWindowImpl::editerX(int i)
 	//connect(e->buttonBox,SIGNAL(accepted()),this,SLOT(acc()));
 	//connect(e->buttonBox,SIGNAL(rejected()),this,SLOT(rej()));
 	
-	e->show();	
+	e->show();
 	
-}
-
-void MainWindowImpl::acc()
-{
-	xmlDoc->writeX(2,"t","tt");
-	qDebug("accept");
-	
-}
-
-void MainWindowImpl::rej()
-{
-	qDebug("cancel");
-//	exit(0);
 }
 
 void MainWindowImpl::copierX(int i)
@@ -102,6 +91,39 @@ void MainWindowImpl::copierX(int i)
 	
 	if(r.size()==2)	//chaque fois verifier que size ok? ...
 		clipboard->setText(r.at(1));
+}
+
+void MainWindowImpl::on_lookup_clicked()
+{
+	//QHostInfo::lookupHost(titre->text(),this, SLOT(lookup_result(QHostInfo)));
+	QHostInfo::lookupHost(name->text(),this, SLOT(lookup_result(QHostInfo)));
+	
+	//Comment faire d'autre ? un XML avec une variable dedans qui serra remplacée? mouais, pas mal
+	QString conf;
+	QClipboard *clipboard = QApplication::clipboard();
+	
+	conf = "\nconfigure terminal\nhostname " + name->text() + "\ninterface " + BBinterface->text() + "\n";
+	conf += "ip address " + tmpIP + " 255.255.255.0\n";
+	conf += "no shut\nexit\n";
+	//Faire quelque chose pour le media-type, duplex, speed, ...
+	conf += "ip route 0.0.0.0 0.0.0.0 passerelle\n";
+	
+	clipboard->setText(conf);
+}
+
+void MainWindowImpl::lookup_result(const QHostInfo &host)
+{
+	if (host.error() != QHostInfo::NoError)
+	{
+		//qDebug() << "Lookup failed:" << host.errorString();
+		lookup_status->setText("< lookup failed >");
+		return;
+	}
+	/*
+	foreach (QHostAddress address, host.addresses())
+	qDebug() << "Found address:" << address.toString();*/
+	tmpIP = host.addresses().first().toString();
+	lookup_status->setText("< " + tmpIP + " >");
 }
 
 void MainWindowImpl::on_action_Plus_triggered()
