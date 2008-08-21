@@ -17,6 +17,8 @@
 
 #include <QMessageBox>
 
+#include <QHostInfo>
+
 
 #include "FCxml.h"
 //
@@ -40,9 +42,9 @@ private slots:
 	void copierX(int);
 	void show_hide();
 	void sticon_dblclicked(QSystemTrayIcon::ActivationReason);
-	void acc();
-	void rej();
 	void exit_applic();
+	void on_lookup_clicked();
+	void lookup_result(const QHostInfo &host);
 	
 private:
 	// Variables :
@@ -53,6 +55,7 @@ private:
 	QSignalMapper *signalMapper_edit;	// Relie le click du bouton editer à la fonction editerX et envoit le numéro de ligne du bouton
 	QSignalMapper *signalMapper_copy;	// Idem mais lie le tout à copierX
 	FCxml *xmlDoc;
+	QString tmpIP;
 	
 	// Fonctions :
 	void initTray();
