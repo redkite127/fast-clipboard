@@ -18,8 +18,9 @@
 #include <QMessageBox>
 
 #include <QHostInfo>
+#include <QNetworkAddressEntry>
 
-
+#include "NetworksXml.h"
 #include "FCxml.h"
 //
 class MainWindowImpl : public QMainWindow, public Ui::MainWindow
@@ -45,6 +46,7 @@ private slots:
 	void exit_applic();
 	void on_lookup_clicked();
 	void lookup_result(const QHostInfo &host);
+	void find_mask_and_net_id_from_ip();
 	
 private:
 	// Variables :
@@ -55,7 +57,7 @@ private:
 	QSignalMapper *signalMapper_edit;	// Relie le click du bouton editer à la fonction editerX et envoit le numéro de ligne du bouton
 	QSignalMapper *signalMapper_copy;	// Idem mais lie le tout à copierX
 	FCxml *xmlDoc;
-	QString tmpIP;
+	QNetworkAddressEntry tmpAddress; // Ip de l'host trouvé grace au lookup
 	
 	// Fonctions :
 	void initTray();
