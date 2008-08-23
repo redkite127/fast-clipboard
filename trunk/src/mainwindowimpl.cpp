@@ -95,15 +95,18 @@ void MainWindowImpl::copierX(int i)
 
 void MainWindowImpl::on_lookup_clicked()
 {
-	//QHostInfo::lookupHost(titre->text(),this, SLOT(lookup_result(QHostInfo)));
+	// Recherche de l'adresse de l'host indiqué et stockage dans IP de tmpAddress (QNewtorkAddressEntry)
 	QHostInfo::lookupHost(name->text(),this, SLOT(lookup_result(QHostInfo)));
+	
+	//Comment faire pour attendre que le slot lookup_result soit fini?
+	qDebug()<< tmpAddress.ip() << endl << tmpAddress.netmask()<<endl<< (tmpAddress.ip().toIPv4Address()&tmpAddress.netmask().toIPv4Address())+1;
 	
 	//Comment faire d'autre ? un XML avec une variable dedans qui serra remplacée? mouais, pas mal
 	QString conf;
 	QClipboard *clipboard = QApplication::clipboard();
 	
 	conf = "\nconfigure terminal\nhostname " + name->text() + "\ninterface " + BBinterface->text() + "\n";
-	conf += "ip address " + tmpIP + " 255.255.255.0\n";
+	conf += "ip address " + tmpAddress.ip().toString() + " 255.255.255.0\n";
 	conf += "no shut\nexit\n";
 	//Faire quelque chose pour le media-type, duplex, speed, ...
 	conf += "ip route 0.0.0.0 0.0.0.0 passerelle\n";
@@ -119,11 +122,30 @@ void MainWindowImpl::lookup_result(const QHostInfo &host)
 		lookup_status->setText("< lookup failed >");
 		return;
 	}
-	/*
-	foreach (QHostAddress address, host.addresses())
-	qDebug() << "Found address:" << address.toString();*/
-	tmpIP = host.addresses().first().toString();
-	lookup_status->setText("< " + tmpIP + " >");
+
+	if (!host.addresses().isEmpty())
+	{
+		tmpAddress.setIp(host.addresses().first());
+		lookup_status->setText("< " + tmpAddress.ip().toString() + " >");
+		
+		//Recherche de son NetworkID
+		find_mask_and_net_id_from_ip();
+	}
+	
+}
+
+void MainWindowImpl::find_mask_and_net_id_from_ip()
+{
+	QFile file;
+	QXmlInputSource *inputSource;
+	QXmlSimpleReader reader;                 //une interface pour notre parseur
+	NetworksXML handler(tmpAddress.ip());                          //notre classe qui va faire le boulot
+	file.setFileName("CISCObackbone.xml");         //spécifie le nom du fichier xml à lire
+	inputSource= new QXmlInputSource(&file); //associe une source xml au fichier
+	reader.setContentHandler(&handler);      //associe l’interface à notre parseur
+	reader.parse(inputSource);               //débute la lecture du document xml
+	
+	qDebug()<< tmpAddress.ip().toString() << endl << handler.getNetworkAddress().ip().toString() << handler.getNetworkAddress().netmask().toString() <<endl << handler.getTeamName()<< QHostAddress(handler.getNetworkAddress().ip().toIPv4Address()+1).toString();
 }
 
 void MainWindowImpl::on_action_Plus_triggered()
