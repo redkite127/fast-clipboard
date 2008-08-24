@@ -7,9 +7,11 @@ MainWindowImpl::MainWindowImpl( QWidget * parent, Qt::WFlags f) : QMainWindow(pa
 	
 	// Initialisation du System Tray Icon ATTENTION, le faire avant d'ajouter des lignes!
 	initTray();
-	
+	AboutFCImpl *about = new AboutFCImpl;
+	connect(actionAbout_Fast_Clipboard,SIGNAL(triggered()),about,SLOT(show()));
+	connect(actionAbout_Qt, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
+		
 	this->nombre = 0;
-	
 	// Lecture du fichier (va le charger dans domDocument)
 	QFile *file= new QFile("pp2DB.xml"); //FIXME pas en hard pleaaaaase ! 
 	xmlDoc = new FCxml(file);
@@ -115,7 +117,7 @@ void MainWindowImpl::on_lookup_clicked()
 		NetworksXML handler(tmpAddress.ip());	// En plus d'etre un handler pour le parser SAX, il va contenir les adresses (netID et mask) qui m'interesse
 		find_mask_and_net_id_from_ip(handler);
 		tmpAddress.setNetmask(handler.getNetworkAddress().netmask());
-		tmpAddress.setBroadcast(handler.getNetworkAddress().ip()); // J'ai pas besoin du brodcast, je vai stocker le netID dedans.
+		tmpAddress.setBroadcast(QHostAddress(handler.getNetworkAddress().ip().toIPv4Address()+1)); // J'ai pas besoin du brodcast, je vai stocker le netID dedans.
 		tmpTeamName = handler.getTeamName();
 		tmpShortMask = handler.getShortMask();
 		//qDebug() << "IP : " << tmpAddress.ip().toString() << "/" << tmpShortMask << endl << "Mask : " << tmpAddress.netmask().toString() << endl << "Gateway : " << tmpAddress.broadcast().toString() << endl;

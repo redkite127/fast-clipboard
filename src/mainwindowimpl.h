@@ -22,6 +22,7 @@
 
 #include "NetworksXml.h"
 #include "FCxml.h"
+#include "aboutFCimpl.h"
 //
 class MainWindowImpl : public QMainWindow, public Ui::MainWindow
 {
