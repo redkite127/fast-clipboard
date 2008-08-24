@@ -22,6 +22,7 @@ public:
 	
 	QNetworkAddressEntry getNetworkAddress();
 	QString getTeamName();
+	int getShortMask();
 
 private :
 	QString balise_item;         //drapeau pour une balise “item”
@@ -30,5 +31,6 @@ private :
 	QNetworkAddressEntry networkAddress;
 	QString teamName;
 	QHostAddress IP;
+	int shortMask;
 };
 #endif

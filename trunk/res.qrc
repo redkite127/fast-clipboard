@@ -1,5 +1,6 @@
 <RCC>
   <qresource>
+    <file>images/icon/app.ico</file>
     <file>images/icon/colors.png</file>
     <file>images/icon/exit.png</file>
     <file>images/icon/pencil.png</file>

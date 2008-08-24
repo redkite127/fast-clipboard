@@ -46,18 +46,21 @@ private slots:
 	void exit_applic();
 	void on_lookup_clicked();
 	void lookup_result(const QHostInfo &host);
-	void find_mask_and_net_id_from_ip();
+	void find_mask_and_net_id_from_ip(NetworksXML&);
 	
 private:
 	// Variables :
 	QSystemTrayIcon *sticon;		// L'icone qui va aller dans le systemTray (SystemTrayIcon)
 	QMenu *stmenu;					// Menu qui ira avec cet icone (SystemTrayMenu)
+	QAction *quit;
 	QVBoxLayout *vLayout;	// nécessaire pour réussir a gérer le stretch en dessous des boutons
 	int nombre;				// indique combien de ligne sont actuellement affichée
 	QSignalMapper *signalMapper_edit;	// Relie le click du bouton editer à la fonction editerX et envoit le numéro de ligne du bouton
 	QSignalMapper *signalMapper_copy;	// Idem mais lie le tout à copierX
 	FCxml *xmlDoc;
 	QNetworkAddressEntry tmpAddress; // Ip de l'host trouvé grace au lookup
+	QString tmpTeamName;
+	int tmpShortMask;
 	
 	// Fonctions :
 	void initTray();

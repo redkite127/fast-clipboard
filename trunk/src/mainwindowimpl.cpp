@@ -5,6 +5,9 @@ MainWindowImpl::MainWindowImpl( QWidget * parent, Qt::WFlags f) : QMainWindow(pa
 {
 	setupUi(this);
 	
+	// Initialisation du System Tray Icon ATTENTION, le faire avant d'ajouter des lignes!
+	initTray();
+	
 	this->nombre = 0;
 	
 	// Lecture du fichier (va le charger dans domDocument)
@@ -33,12 +36,10 @@ MainWindowImpl::MainWindowImpl( QWidget * parent, Qt::WFlags f) : QMainWindow(pa
 	// Création d'un certain nombre de ligne
 	xmlDoc->lireAll();	// Va lire le fichier xml et chaque fois qu'il trouvera un item, il enverra un signal à addLine avec le titre en paramètre !
 	
-	// Initialisation du System Tray Icon
-	initTray();
-	
 	// Auto-selection du texte lors du clic sur un LineEdit
 	//connect(name,SIGNAL(clicked()),name,SLOT(selectAll()));
 	//connect(BBinterface,SIGNAL(clicked()),BBinterface,SLOT(selectAll()));
+	name->selectAll();
 	
 }
 
@@ -67,6 +68,13 @@ void MainWindowImpl::addLine(QString t)
 	connect(button1, SIGNAL(clicked()), signalMapper_copy, SLOT(map()));
 	connect(button2, SIGNAL(clicked()), signalMapper_edit, SLOT(map()));
 
+	QAction *act = new QAction(t,this);
+	connect(act,SIGNAL(triggered()),button1,SLOT(click()));
+	QList<QAction *> list = stmenu->actions();
+	/*list.insert(list.size()-2,act);
+	foreach (QAction *a, list)
+		stmenu->addAction(a);*/
+	stmenu->insertAction(list.at(list.size()-2),act); 
 }
 
 void MainWindowImpl::editerX(int i)
@@ -96,26 +104,49 @@ void MainWindowImpl::copierX(int i)
 void MainWindowImpl::on_lookup_clicked()
 {
 	// Recherche de l'adresse de l'host indiqué et stockage dans IP de tmpAddress (QNewtorkAddressEntry)
-	QHostInfo::lookupHost(name->text(),this, SLOT(lookup_result(QHostInfo)));
+	//QHostInfo::lookupHost(name->text(),this, SLOT(lookup_result(QHostInfo)));	// Version qui appelle un slot (c'est donc threadé et ç am arrange pas. faut que j'attende davoir la reponse avant de continuer
+	QHostInfo info = QHostInfo::fromName(name->text());
+	if (!info.addresses().isEmpty())
+	{
+		tmpAddress.setIp(info.addresses().first());
+		lookup_status->setText(info.addresses().first().toString());
+		
+		NetworksXML handler(tmpAddress.ip());	// En plus d'etre un handler pour le parser SAX, il va contenir les adresses (netID et mask) qui m'interesse
+		find_mask_and_net_id_from_ip(handler);
+		tmpAddress.setNetmask(handler.getNetworkAddress().netmask());
+		tmpAddress.setBroadcast(handler.getNetworkAddress().ip()); // J'ai pas besoin du brodcast, je vai stocker le netID dedans.
+		tmpTeamName = handler.getTeamName();
+		tmpShortMask = handler.getShortMask();
+		//qDebug() << "IP : " << tmpAddress.ip().toString() << "/" << tmpShortMask << endl << "Mask : " << tmpAddress.netmask().toString() << endl << "Gateway : " << tmpAddress.broadcast().toString() << endl;
+		lookup_status->setText(tmpTeamName);
+		lookup_status_2->setText(tmpAddress.ip().toString() + QString("/%1").arg(tmpShortMask));
+	}
+	else
+	{
+		lookup_status->setText("< lookup failed >");
+		lookup_status_2->setText("");
+	}
+	
 	
 	//Comment faire pour attendre que le slot lookup_result soit fini?
-	qDebug()<< tmpAddress.ip() << endl << tmpAddress.netmask()<<endl<< (tmpAddress.ip().toIPv4Address()&tmpAddress.netmask().toIPv4Address())+1;
+	//qDebug()<< tmpAddress.ip() << endl << tmpAddress.netmask()<<endl<< (tmpAddress.ip().toIPv4Address()&tmpAddress.netmask().toIPv4Address())+1;
 	
 	//Comment faire d'autre ? un XML avec une variable dedans qui serra remplacée? mouais, pas mal
 	QString conf;
 	QClipboard *clipboard = QApplication::clipboard();
 	
 	conf = "\nconfigure terminal\nhostname " + name->text() + "\ninterface " + BBinterface->text() + "\n";
-	conf += "ip address " + tmpAddress.ip().toString() + " 255.255.255.0\n";
+	conf += "ip address " + tmpAddress.ip().toString() + " " + tmpAddress.netmask().toString() + "\n";
 	conf += "no shut\nexit\n";
 	//Faire quelque chose pour le media-type, duplex, speed, ...
-	conf += "ip route 0.0.0.0 0.0.0.0 passerelle\n";
-	
+	conf += "ip route 0.0.0.0 0.0.0.0 " + tmpAddress.broadcast().toString() + "\n";
+
 	clipboard->setText(conf);
 }
 
 void MainWindowImpl::lookup_result(const QHostInfo &host)
 {
+	/*
 	if (host.error() != QHostInfo::NoError)
 	{
 		//qDebug() << "Lookup failed:" << host.errorString();
@@ -131,21 +162,19 @@ void MainWindowImpl::lookup_result(const QHostInfo &host)
 		//Recherche de son NetworkID
 		find_mask_and_net_id_from_ip();
 	}
-	
+	*/
 }
 
-void MainWindowImpl::find_mask_and_net_id_from_ip()
+void MainWindowImpl::find_mask_and_net_id_from_ip(NetworksXML& handler)
 {
 	QFile file;
 	QXmlInputSource *inputSource;
 	QXmlSimpleReader reader;                 //une interface pour notre parseur
-	NetworksXML handler(tmpAddress.ip());                          //notre classe qui va faire le boulot
 	file.setFileName("CISCObackbone.xml");         //spécifie le nom du fichier xml à lire
 	inputSource= new QXmlInputSource(&file); //associe une source xml au fichier
 	reader.setContentHandler(&handler);      //associe l’interface à notre parseur
 	reader.parse(inputSource);               //débute la lecture du document xml
-	
-	qDebug()<< tmpAddress.ip().toString() << endl << handler.getNetworkAddress().ip().toString() << handler.getNetworkAddress().netmask().toString() <<endl << handler.getTeamName()<< QHostAddress(handler.getNetworkAddress().ip().toIPv4Address()+1).toString();
+	//qDebug()<< tmpAddress.ip().toString() << endl << handler.getNetworkAddress().ip().toString() << handler.getNetworkAddress().netmask().toString() <<endl << handler.getTeamName()<< QHostAddress(handler.getNetworkAddress().ip().toIPv4Address()+1).toString();
 }
 
 void MainWindowImpl::on_action_Plus_triggered()
@@ -174,11 +203,13 @@ void MainWindowImpl::initTray()
 	stmenu->setDefaultAction(aff_cach);								// Change l'APPARANCE de l'action (en gras) et c'est tout! 
 	connect(aff_cach,SIGNAL(triggered()),this,SLOT(show_hide()));	// Lie l'actionau slot qui affiche/cache la fenêtre principale
 	
+	stmenu->setSeparatorsCollapsible(false);
+	stmenu->addSeparator();
 	stmenu->addSeparator();
 	
 	connect(sticon,SIGNAL(activated(QSystemTrayIcon::ActivationReason)),this,SLOT(sticon_dblclicked(QSystemTrayIcon::ActivationReason)));	// Lie au slot qui dit quoi faire quand on double clic sur l'icone
 	
-	QAction *quit = new QAction("Quitter",this);
+	quit = new QAction("Quitter",this);
 	stmenu->addAction(quit);
 	connect(quit,SIGNAL(triggered()),this,SLOT(exit_applic())); //mwouai, ca serait mieux de se baser sur autre chose que le fait que le tray soit la ou pas
 	
