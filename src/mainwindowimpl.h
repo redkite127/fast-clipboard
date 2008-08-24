@@ -52,7 +52,6 @@ private:
 	// Variables :
 	QSystemTrayIcon *sticon;		// L'icone qui va aller dans le systemTray (SystemTrayIcon)
 	QMenu *stmenu;					// Menu qui ira avec cet icone (SystemTrayMenu)
-	QAction *quit;
 	QVBoxLayout *vLayout;	// nécessaire pour réussir a gérer le stretch en dessous des boutons
 	int nombre;				// indique combien de ligne sont actuellement affichée
 	QSignalMapper *signalMapper_edit;	// Relie le click du bouton editer à la fonction editerX et envoit le numéro de ligne du bouton

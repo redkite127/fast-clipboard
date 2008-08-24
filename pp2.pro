@@ -1,6 +1,6 @@
 TEMPLATE = app
 QT = gui core xml network
-CONFIG += qt warn_on resources debug
+CONFIG += qt warn_on resources debug_and_release
 DESTDIR = bin
 OBJECTS_DIR = build
 MOC_DIR = build
@@ -13,4 +13,3 @@ SOURCES = src/mainwindowimpl.cpp \
  src/FCxml.cpp \
  src/NetworksXml.cpp
 RESOURCES += res.qrc
-RC_FILES =  myapp.rc
