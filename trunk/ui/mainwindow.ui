@@ -292,18 +292,24 @@
   </action>
   <action name="actionAbout_Qt" >
    <property name="enabled" >
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="text" >
     <string>About &amp;Qt</string>
    </property>
+   <property name="menuRole" >
+    <enum>QAction::AboutQtRole</enum>
+   </property>
   </action>
   <action name="actionAbout_Fast_Clipboard" >
    <property name="enabled" >
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="text" >
     <string>About &amp;Fast-Clipboard</string>
+   </property>
+   <property name="menuRole" >
+    <enum>QAction::AboutRole</enum>
    </property>
   </action>
  </widget>
