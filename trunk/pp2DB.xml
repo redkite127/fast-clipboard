@@ -20,4 +20,8 @@ show ip interface brief | include up
 
 </texte>
     </item>
+    <item>
+        <titre>( vide )</titre>
+        <texte>( vide )</texte>
+    </item>
 </fast-clipboard>

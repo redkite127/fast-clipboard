@@ -68,9 +68,10 @@ void MainWindowImpl::addLine(QString t)
 	connect(button1, SIGNAL(clicked()), signalMapper_copy, SLOT(map()));
 	connect(button2, SIGNAL(clicked()), signalMapper_edit, SLOT(map()));
 
+	// Mise à jour du menu du system Tray
 	QAction *act = new QAction(t,this);
 	connect(act,SIGNAL(triggered()),button1,SLOT(click()));
-	QList<QAction *> list = stmenu->actions();
+	QList<QAction *> list = stmenu->actions();	// Pour pouvoir récupérer le before
 	/*list.insert(list.size()-2,act);
 	foreach (QAction *a, list)
 		stmenu->addAction(a);*/
@@ -209,9 +210,9 @@ void MainWindowImpl::initTray()
 	
 	connect(sticon,SIGNAL(activated(QSystemTrayIcon::ActivationReason)),this,SLOT(sticon_dblclicked(QSystemTrayIcon::ActivationReason)));	// Lie au slot qui dit quoi faire quand on double clic sur l'icone
 	
-	quit = new QAction("Quitter",this);
+	QAction *quit = new QAction("Quitter",this);
 	stmenu->addAction(quit);
-	connect(quit,SIGNAL(triggered()),this,SLOT(exit_applic())); //mwouai, ca serait mieux de se baser sur autre chose que le fait que le tray soit la ou pas
+	connect(quit,SIGNAL(triggered()),this,SLOT(exit_applic()));
 	
 	sticon->setContextMenu(stmenu); // On assigne le menu contextuel à l'icône de notification
 	
@@ -265,7 +266,7 @@ void MainWindowImpl::closeEvent(QCloseEvent *event)
 	}
 }
 
-void MainWindowImpl::exit_applic()
+void MainWindowImpl::exit_applic() //mwouai, ca serait mieux de se baser sur autre chose que le fait que le tray soit la ou pas
 {
 	sticon->hide();
 	this->close();
