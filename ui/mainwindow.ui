@@ -20,24 +20,24 @@
    <property name="geometry" >
     <rect>
      <x>0</x>
-     <y>25</y>
+     <y>26</y>
      <width>213</width>
-     <height>370</height>
+     <height>369</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout" >
     <item>
      <widget class="QGroupBox" name="groupBox" >
       <property name="title" >
-       <string>Configurer backbone</string>
+       <string>Connection backbone</string>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_2" >
+      <layout class="QVBoxLayout" name="verticalLayout_3" >
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_2" >
          <item>
           <widget class="QLineEdit" name="name" >
            <property name="text" >
-            <string>Nom</string>
+            <string>hostname</string>
            </property>
           </widget>
          </item>
@@ -65,63 +65,126 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout" >
          <item>
-          <widget class="QLabel" name="lookup_status" >
-           <property name="palette" >
-            <palette>
-             <active>
-              <colorrole role="WindowText" >
-               <brush brushstyle="SolidPattern" >
-                <color alpha="255" >
-                 <red>142</red>
-                 <green>134</green>
-                 <blue>128</blue>
-                </color>
-               </brush>
-              </colorrole>
-             </active>
-             <inactive>
-              <colorrole role="WindowText" >
-               <brush brushstyle="SolidPattern" >
-                <color alpha="255" >
-                 <red>142</red>
-                 <green>134</green>
-                 <blue>128</blue>
-                </color>
-               </brush>
-              </colorrole>
-             </inactive>
-             <disabled>
-              <colorrole role="WindowText" >
-               <brush brushstyle="SolidPattern" >
-                <color alpha="255" >
-                 <red>146</red>
-                 <green>145</green>
-                 <blue>144</blue>
-                </color>
-               </brush>
-              </colorrole>
-             </disabled>
-            </palette>
-           </property>
-           <property name="font" >
-            <font>
-             <pointsize>8</pointsize>
-             <italic>false</italic>
-             <underline>false</underline>
-             <strikeout>false</strikeout>
-             <kerning>true</kerning>
-            </font>
-           </property>
-           <property name="text" >
-            <string>&lt;status></string>
-           </property>
-           <property name="alignment" >
-            <set>Qt::AlignCenter</set>
-           </property>
-           <property name="textInteractionFlags" >
-            <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-           </property>
-          </widget>
+          <layout class="QVBoxLayout" name="verticalLayout_2" >
+           <item>
+            <widget class="QLabel" name="lookup_status" >
+             <property name="palette" >
+              <palette>
+               <active>
+                <colorrole role="WindowText" >
+                 <brush brushstyle="SolidPattern" >
+                  <color alpha="255" >
+                   <red>142</red>
+                   <green>134</green>
+                   <blue>128</blue>
+                  </color>
+                 </brush>
+                </colorrole>
+               </active>
+               <inactive>
+                <colorrole role="WindowText" >
+                 <brush brushstyle="SolidPattern" >
+                  <color alpha="255" >
+                   <red>142</red>
+                   <green>134</green>
+                   <blue>128</blue>
+                  </color>
+                 </brush>
+                </colorrole>
+               </inactive>
+               <disabled>
+                <colorrole role="WindowText" >
+                 <brush brushstyle="SolidPattern" >
+                  <color alpha="255" >
+                   <red>146</red>
+                   <green>145</green>
+                   <blue>144</blue>
+                  </color>
+                 </brush>
+                </colorrole>
+               </disabled>
+              </palette>
+             </property>
+             <property name="font" >
+              <font>
+               <pointsize>8</pointsize>
+               <italic>false</italic>
+               <underline>false</underline>
+               <strikeout>false</strikeout>
+               <kerning>true</kerning>
+              </font>
+             </property>
+             <property name="text" >
+              <string>&lt;status></string>
+             </property>
+             <property name="alignment" >
+              <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+             </property>
+             <property name="textInteractionFlags" >
+              <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lookup_status_2" >
+             <property name="palette" >
+              <palette>
+               <active>
+                <colorrole role="WindowText" >
+                 <brush brushstyle="SolidPattern" >
+                  <color alpha="255" >
+                   <red>142</red>
+                   <green>134</green>
+                   <blue>128</blue>
+                  </color>
+                 </brush>
+                </colorrole>
+               </active>
+               <inactive>
+                <colorrole role="WindowText" >
+                 <brush brushstyle="SolidPattern" >
+                  <color alpha="255" >
+                   <red>142</red>
+                   <green>134</green>
+                   <blue>128</blue>
+                  </color>
+                 </brush>
+                </colorrole>
+               </inactive>
+               <disabled>
+                <colorrole role="WindowText" >
+                 <brush brushstyle="SolidPattern" >
+                  <color alpha="255" >
+                   <red>146</red>
+                   <green>145</green>
+                   <blue>144</blue>
+                  </color>
+                 </brush>
+                </colorrole>
+               </disabled>
+              </palette>
+             </property>
+             <property name="font" >
+              <font>
+               <pointsize>8</pointsize>
+               <italic>false</italic>
+               <underline>false</underline>
+               <strikeout>false</strikeout>
+               <kerning>true</kerning>
+              </font>
+             </property>
+             <property name="text" >
+              <string/>
+             </property>
+             <property name="alignment" >
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+             </property>
+             <property name="textInteractionFlags" >
+              <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
          <item>
           <widget class="QPushButton" name="lookup" >
@@ -143,7 +206,7 @@
      <x>0</x>
      <y>0</y>
      <width>213</width>
-     <height>25</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Fichier" >

@@ -48,6 +48,10 @@ bool NetworksXML::characters ( const QString & ch)
 			networkAddress.setIp(QHostAddress(ch));
 		if(balise=="SubnetMask")
 			networkAddress.setNetmask(QHostAddress(ch));
+		if(balise == "Mask")
+		{
+			shortMask=ch.toInt();
+		}
 	}
 	
 	return true;
@@ -55,6 +59,10 @@ bool NetworksXML::characters ( const QString & ch)
 
 bool NetworksXML::endDocument ()
 {
+	networkAddress.setIp(QHostAddress(""));
+	teamName = "";
+	shortMask = 0;
+	
 	return true;
 }
 bool NetworksXML::endElement ( const QString & namespaceURI, const QString &localName, const QString & qName )
@@ -69,10 +77,10 @@ bool NetworksXML::endElement ( const QString & namespaceURI, const QString &loca
 		
 		// Verifier si ce net-id peut convenir à l'adresse IP passé en paramètre du constructeur...
 		//qDebug("found\n");
-		qDebug() << "BB" << teamName << endl;
+		//qDebug() << "BB" << teamName << endl;
 		
 		if( ( (IP.toIPv4Address()) & networkAddress.netmask().toIPv4Address() )==networkAddress.ip().toIPv4Address() )
-			return false;
+			return false; // Pour Quitter puisqu'on a trouvé le bon
 			//qDebug() << "cc"<<teamName << endl;
 	}
 	return true;
@@ -86,5 +94,10 @@ QNetworkAddressEntry NetworksXML::getNetworkAddress()
 QString NetworksXML::getTeamName()
 {
 	return teamName;
+}
+
+int NetworksXML::getShortMask()
+{
+	return shortMask;
 }
 //

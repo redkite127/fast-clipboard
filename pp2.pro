@@ -13,3 +13,4 @@ SOURCES = src/mainwindowimpl.cpp \
  src/FCxml.cpp \
  src/NetworksXml.cpp
 RESOURCES += res.qrc
+RC_FILES =  myapp.rc
