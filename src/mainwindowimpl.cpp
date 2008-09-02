@@ -55,7 +55,7 @@ void MainWindowImpl::addLine(QString t)
 	
 	QPushButton *button1 = new QPushButton(t,centralwidget);
 	
-	QPushButton *button2 = new QPushButton(QIcon(":/images/icon/pencil.png"),QString(""),centralwidget);
+	QPushButton *button2 = new QPushButton(QIcon(":/images/images/icon/pencil.png"),QString(""),centralwidget);
 	button2->setMaximumWidth(32);
 	button2->setIconSize(QSize(22,22));
 	
@@ -138,16 +138,25 @@ void MainWindowImpl::on_lookup_clicked()
 	QString conf;
 	QClipboard *clipboard = QApplication::clipboard();
 	
-	conf = "\nconfigure terminal\nhostname " + name->text() + "\ninterface " + BBinterface->text() + "\n";
+	conf = "\nconfigure terminal\nhostname " + name->text() + "\n";
+	conf += "default interface " + BBinterface->text() + "\n";
+	conf += "interface " + BBinterface->text() + "\n";
 	conf += "ip address " + tmpAddress.ip().toString() + " " + tmpAddress.netmask().toString() + "\n";
+	if ( speedButton->text() != "   speed" )
+		conf += "speed " + speedButton->text().simplified() + "\n";
+	if ( duplexButton->text() != "  duplex" )
+		conf += "duplex " + duplexButton->text().simplified() + "\n";;
+	if ( mediaButton->text() != "   media" )
+		conf += "media-type " + mediaButton->text().simplified() + "\n";;
 	conf += "no shut\nexit\n";
 	//Faire quelque chose pour le media-type, duplex, speed, ...
 	conf += "ip route 0.0.0.0 0.0.0.0 " + tmpAddress.broadcast().toString() + "\n";
+	conf += "exit\n";
 
 	clipboard->setText(conf);
 }
 
-void MainWindowImpl::lookup_result(const QHostInfo &host)
+void MainWindowImpl::lookup_result(/*const QHostInfo &host*/)
 {
 	/*
 	if (host.error() != QHostInfo::NoError)
@@ -197,7 +206,7 @@ void MainWindowImpl::initTray()
 	 * Va initialiser et afficher un icone dans le systeme tray
 	 */
 
-	sticon = new QSystemTrayIcon(QIcon(":/images/icon/colors.png"),this);
+	sticon = new QSystemTrayIcon(QIcon(":/images/images/icon/colors.png"),this);
 	
 	stmenu = new QMenu(this);
 	
@@ -273,4 +282,61 @@ void MainWindowImpl::exit_applic() //mwouai, ca serait mieux de se baser sur aut
 	sticon->hide();
 	this->close();
 }
+
+void MainWindowImpl::on_speedButton_clicked()
+{
+	if(speedButton->text()=="   speed")
+	{
+		speedButton->setText("    auto");
+		speedButton->setIcon(QIcon(":/images/green.png"));
+	}
+	else if(speedButton->text()=="    auto")
+		speedButton->setText("      10");
+	else if(speedButton->text()=="      10")
+		speedButton->setText("     100");
+	else if(speedButton->text()=="     100")
+		speedButton->setText("    1000");
+	else if(speedButton->text()=="    1000")
+	{
+		speedButton->setText("   speed");	// Que faire si on ne choisit rien? "default speed" ou "no speed" ou rien? ==> rien 
+		speedButton->setIcon(QIcon(":/images/red.png"));
+	}
+};
+
+void MainWindowImpl::on_duplexButton_clicked()
+{
+	if(duplexButton->text()=="  duplex")
+	{
+		duplexButton->setText("    auto");
+		duplexButton->setIcon(QIcon(":/images/green.png"));
+	}
+	else if(duplexButton->text()=="    auto")
+		duplexButton->setText("    half");
+	else if(duplexButton->text()=="    half")
+		duplexButton->setText("    full");
+	else if(duplexButton->text()=="    full")
+	{
+		duplexButton->setText("  duplex"); 
+		duplexButton->setIcon(QIcon(":/images/red.png"));
+	}
+};
+
+void MainWindowImpl::on_mediaButton_clicked()
+{
+	if(mediaButton->text()=="   media")
+	{
+		mediaButton->setText("    rj45");
+		mediaButton->setIcon(QIcon(":/images/green.png"));
+	}
+	else if(mediaButton->text()=="    rj45")
+		mediaButton->setText("     sfp");
+	else if(mediaButton->text()=="     sfp")
+		mediaButton->setText("    gbic");
+	else if(mediaButton->text()=="    gbic")
+	{
+		mediaButton->setText("   media"); 
+		mediaButton->setIcon(QIcon(":/images/red.png"));
+	}
+};
+
 //
