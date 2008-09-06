@@ -10,11 +10,13 @@ HEADERS = src/mainwindowimpl.h \
  src/editimpl.h \
  src/FCxml.h \
  src/NetworksXml.h \
- src/aboutFCimpl.h
+ src/aboutFCimpl.h \
+ qled.h
 SOURCES = src/mainwindowimpl.cpp \
  src/main.cpp \
  src/editimpl.cpp \
  src/FCxml.cpp \
  src/NetworksXml.cpp \
- src/aboutFCimpl.cpp
+ src/aboutFCimpl.cpp \
+ qled.cpp
 RESOURCES += res.qrc

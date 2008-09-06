@@ -17,14 +17,6 @@
     <normaloff>:/images/images/icon/colors.png</normaloff>:/images/images/icon/colors.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget" >
-   <property name="geometry" >
-    <rect>
-     <x>0</x>
-     <y>26</y>
-     <width>223</width>
-     <height>329</height>
-    </rect>
-   </property>
    <layout class="QVBoxLayout" name="verticalLayout" >
     <property name="spacing" >
      <number>6</number>
@@ -38,21 +30,6 @@
        <string>Connection backbone</string>
       </property>
       <layout class="QGridLayout" name="gridLayout" >
-       <property name="leftMargin" >
-        <number>6</number>
-       </property>
-       <property name="topMargin" >
-        <number>2</number>
-       </property>
-       <property name="rightMargin" >
-        <number>6</number>
-       </property>
-       <property name="bottomMargin" >
-        <number>2</number>
-       </property>
-       <property name="spacing" >
-        <number>4</number>
-       </property>
        <item row="0" column="0" colspan="2" >
         <layout class="QHBoxLayout" name="horizontalLayout_2" >
          <property name="spacing" >
@@ -93,60 +70,95 @@
         </layout>
        </item>
        <item row="1" column="0" >
-        <widget class="QPushButton" name="speedButton" >
-         <property name="enabled" >
-          <bool>true</bool>
+        <layout class="QHBoxLayout" name="horizontalLayout" >
+         <property name="spacing" >
+          <number>0</number>
          </property>
-         <property name="maximumSize" >
-          <size>
-           <width>80</width>
-           <height>20</height>
-          </size>
-         </property>
-         <property name="font" >
-          <font>
-           <family>Courier 10 Pitch</family>
-           <weight>50</weight>
-           <italic>false</italic>
-           <bold>false</bold>
-           <underline>false</underline>
-           <strikeout>false</strikeout>
-          </font>
-         </property>
-         <property name="layoutDirection" >
-          <enum>Qt::LeftToRight</enum>
-         </property>
-         <property name="autoFillBackground" >
-          <bool>false</bool>
-         </property>
-         <property name="text" >
-          <string>   speed</string>
-         </property>
-         <property name="icon" >
-          <iconset resource="../res.qrc" >
-           <normaloff>:/images/red.png</normaloff>:/images/red.png</iconset>
-         </property>
-         <property name="iconSize" >
-          <size>
-           <width>10</width>
-           <height>10</height>
-          </size>
-         </property>
-         <property name="checkable" >
-          <bool>false</bool>
-         </property>
-         <property name="autoDefault" >
-          <bool>false</bool>
-         </property>
-         <property name="default" >
-          <bool>false</bool>
-         </property>
-         <property name="flat" >
-          <bool>false</bool>
-         </property>
-        </widget>
+         <item>
+          <widget class="QLed" name="speedLed" >
+           <property name="minimumSize" >
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="maximumSize" >
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="toolTip" >
+            <string>Binary Led</string>
+           </property>
+           <property name="whatsThis" >
+            <string>Led widget</string>
+           </property>
+           <property name="value" >
+            <bool>false</bool>
+           </property>
+           <property name="color" >
+            <color>
+             <red>0</red>
+             <green>122</green>
+             <blue>0</blue>
+            </color>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="speedButton" >
+           <property name="enabled" >
+            <bool>true</bool>
+           </property>
+           <property name="maximumSize" >
+            <size>
+             <width>60</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="font" >
+            <font>
+             <family>Courier 10 Pitch</family>
+             <weight>50</weight>
+             <italic>false</italic>
+             <bold>false</bold>
+             <underline>false</underline>
+             <strikeout>false</strikeout>
+            </font>
+           </property>
+           <property name="layoutDirection" >
+            <enum>Qt::LeftToRight</enum>
+           </property>
+           <property name="autoFillBackground" >
+            <bool>false</bool>
+           </property>
+           <property name="text" >
+            <string>speed</string>
+           </property>
+           <property name="iconSize" >
+            <size>
+             <width>10</width>
+             <height>10</height>
+            </size>
+           </property>
+           <property name="checkable" >
+            <bool>false</bool>
+           </property>
+           <property name="autoDefault" >
+            <bool>false</bool>
+           </property>
+           <property name="default" >
+            <bool>false</bool>
+           </property>
+           <property name="flat" >
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
-       <item rowspan="4" row="1" column="1" >
+       <item rowspan="3" row="1" column="1" >
         <layout class="QVBoxLayout" name="verticalLayout_2" >
          <property name="spacing" >
           <number>4</number>
@@ -304,6 +316,9 @@
            <property name="text" >
             <string>Nom &amp;&amp; IP</string>
            </property>
+           <property name="autoDefault" >
+            <bool>false</bool>
+           </property>
            <property name="default" >
             <bool>true</bool>
            </property>
@@ -312,112 +327,182 @@
         </layout>
        </item>
        <item row="2" column="0" >
-        <widget class="QPushButton" name="duplexButton" >
-         <property name="enabled" >
-          <bool>true</bool>
+        <layout class="QHBoxLayout" name="horizontalLayout_3" >
+         <property name="spacing" >
+          <number>0</number>
          </property>
-         <property name="maximumSize" >
-          <size>
-           <width>80</width>
-           <height>20</height>
-          </size>
-         </property>
-         <property name="font" >
-          <font>
-           <family>Courier 10 Pitch</family>
-           <weight>50</weight>
-           <italic>false</italic>
-           <bold>false</bold>
-           <underline>false</underline>
-           <strikeout>false</strikeout>
-          </font>
-         </property>
-         <property name="layoutDirection" >
-          <enum>Qt::LeftToRight</enum>
-         </property>
-         <property name="autoFillBackground" >
-          <bool>false</bool>
-         </property>
-         <property name="text" >
-          <string>  duplex</string>
-         </property>
-         <property name="icon" >
-          <iconset resource="../res.qrc" >
-           <normaloff>:/images/red.png</normaloff>:/images/red.png</iconset>
-         </property>
-         <property name="iconSize" >
-          <size>
-           <width>10</width>
-           <height>10</height>
-          </size>
-         </property>
-         <property name="checkable" >
-          <bool>false</bool>
-         </property>
-         <property name="autoDefault" >
-          <bool>false</bool>
-         </property>
-         <property name="default" >
-          <bool>false</bool>
-         </property>
-         <property name="flat" >
-          <bool>false</bool>
-         </property>
-        </widget>
+         <item>
+          <widget class="QLed" name="duplexLed" >
+           <property name="minimumSize" >
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="maximumSize" >
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="toolTip" >
+            <string>Binary Led</string>
+           </property>
+           <property name="whatsThis" >
+            <string>Led widget</string>
+           </property>
+           <property name="value" >
+            <bool>false</bool>
+           </property>
+           <property name="color" >
+            <color>
+             <red>0</red>
+             <green>122</green>
+             <blue>0</blue>
+            </color>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="duplexButton" >
+           <property name="enabled" >
+            <bool>true</bool>
+           </property>
+           <property name="maximumSize" >
+            <size>
+             <width>60</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="font" >
+            <font>
+             <family>Courier 10 Pitch</family>
+             <weight>50</weight>
+             <italic>false</italic>
+             <bold>false</bold>
+             <underline>false</underline>
+             <strikeout>false</strikeout>
+            </font>
+           </property>
+           <property name="layoutDirection" >
+            <enum>Qt::LeftToRight</enum>
+           </property>
+           <property name="autoFillBackground" >
+            <bool>false</bool>
+           </property>
+           <property name="text" >
+            <string>duplex</string>
+           </property>
+           <property name="iconSize" >
+            <size>
+             <width>10</width>
+             <height>10</height>
+            </size>
+           </property>
+           <property name="checkable" >
+            <bool>false</bool>
+           </property>
+           <property name="autoDefault" >
+            <bool>false</bool>
+           </property>
+           <property name="default" >
+            <bool>false</bool>
+           </property>
+           <property name="flat" >
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
        <item row="3" column="0" >
-        <widget class="QPushButton" name="mediaButton" >
-         <property name="enabled" >
-          <bool>true</bool>
+        <layout class="QHBoxLayout" name="horizontalLayout_4" >
+         <property name="spacing" >
+          <number>0</number>
          </property>
-         <property name="maximumSize" >
-          <size>
-           <width>80</width>
-           <height>20</height>
-          </size>
-         </property>
-         <property name="font" >
-          <font>
-           <family>Courier 10 Pitch</family>
-           <weight>50</weight>
-           <italic>false</italic>
-           <bold>false</bold>
-           <underline>false</underline>
-           <strikeout>false</strikeout>
-          </font>
-         </property>
-         <property name="layoutDirection" >
-          <enum>Qt::LeftToRight</enum>
-         </property>
-         <property name="autoFillBackground" >
-          <bool>false</bool>
-         </property>
-         <property name="text" >
-          <string>   media</string>
-         </property>
-         <property name="icon" >
-          <iconset resource="../res.qrc" >
-           <normaloff>:/images/red.png</normaloff>:/images/red.png</iconset>
-         </property>
-         <property name="iconSize" >
-          <size>
-           <width>10</width>
-           <height>10</height>
-          </size>
-         </property>
-         <property name="checkable" >
-          <bool>false</bool>
-         </property>
-         <property name="autoDefault" >
-          <bool>false</bool>
-         </property>
-         <property name="default" >
-          <bool>false</bool>
-         </property>
-         <property name="flat" >
-          <bool>false</bool>
-         </property>
-        </widget>
+         <item>
+          <widget class="QLed" name="mediaLed" >
+           <property name="minimumSize" >
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="maximumSize" >
+            <size>
+             <width>20</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="toolTip" >
+            <string>Binary Led</string>
+           </property>
+           <property name="whatsThis" >
+            <string>Led widget</string>
+           </property>
+           <property name="value" >
+            <bool>false</bool>
+           </property>
+           <property name="color" >
+            <color>
+             <red>0</red>
+             <green>122</green>
+             <blue>0</blue>
+            </color>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="mediaButton" >
+           <property name="enabled" >
+            <bool>true</bool>
+           </property>
+           <property name="maximumSize" >
+            <size>
+             <width>60</width>
+             <height>20</height>
+            </size>
+           </property>
+           <property name="font" >
+            <font>
+             <family>Courier 10 Pitch</family>
+             <weight>50</weight>
+             <italic>false</italic>
+             <bold>false</bold>
+             <underline>false</underline>
+             <strikeout>false</strikeout>
+            </font>
+           </property>
+           <property name="layoutDirection" >
+            <enum>Qt::LeftToRight</enum>
+           </property>
+           <property name="autoFillBackground" >
+            <bool>false</bool>
+           </property>
+           <property name="text" >
+            <string>media</string>
+           </property>
+           <property name="iconSize" >
+            <size>
+             <width>10</width>
+             <height>10</height>
+            </size>
+           </property>
+           <property name="checkable" >
+            <bool>false</bool>
+           </property>
+           <property name="autoDefault" >
+            <bool>false</bool>
+           </property>
+           <property name="default" >
+            <bool>false</bool>
+           </property>
+           <property name="flat" >
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
       </layout>
      </widget>
@@ -430,7 +515,7 @@
      <x>0</x>
      <y>0</y>
      <width>223</width>
-     <height>26</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Fichier" >
@@ -537,13 +622,20 @@
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QLed</class>
+   <extends>QWidget</extends>
+   <header>qled.h</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>name</tabstop>
   <tabstop>BBinterface</tabstop>
  </tabstops>
  <resources>
   <include location="../res.qrc" />
-  <include location="../../test/test/ressources.qrc" />
+  <include location="../res.qrc" />
  </resources>
  <connections>
   <connection>
