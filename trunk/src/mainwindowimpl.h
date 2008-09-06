@@ -23,6 +23,7 @@
 #include "NetworksXml.h"
 #include "FCxml.h"
 #include "aboutFCimpl.h"
+
 //
 class MainWindowImpl : public QMainWindow, public Ui::MainWindow
 {
@@ -46,7 +47,7 @@ private slots:
 	void sticon_dblclicked(QSystemTrayIcon::ActivationReason);
 	void exit_applic();
 	void on_lookup_clicked();
-	void lookup_result(/*const QHostInfo &host*/);
+	//void lookup_result(const QHostInfo &host);
 	void find_mask_and_net_id_from_ip(NetworksXML&);
 	// 3 slots pour gerer les boutons speed, duplex et media-type
 	void on_speedButton_clicked();
