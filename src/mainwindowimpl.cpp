@@ -142,23 +142,21 @@ void MainWindowImpl::on_lookup_clicked()
 	conf += "default interface " + BBinterface->text() + "\n";
 	conf += "interface " + BBinterface->text() + "\n";
 	conf += "ip address " + tmpAddress.ip().toString() + " " + tmpAddress.netmask().toString() + "\n";
-	if ( speedButton->text() != "   speed" )
+	if ( speedButton->text() != "speed" )
 		conf += "speed " + speedButton->text().simplified() + "\n";
-	if ( duplexButton->text() != "  duplex" )
+	if ( duplexButton->text() != "duplex" )
 		conf += "duplex " + duplexButton->text().simplified() + "\n";;
-	if ( mediaButton->text() != "   media" )
+	if ( mediaButton->text() != "media" )
 		conf += "media-type " + mediaButton->text().simplified() + "\n";;
 	conf += "no shut\nexit\n";
-	//Faire quelque chose pour le media-type, duplex, speed, ...
 	conf += "ip route 0.0.0.0 0.0.0.0 " + tmpAddress.broadcast().toString() + "\n";
 	conf += "exit\n";
 
 	clipboard->setText(conf);
 }
-
-void MainWindowImpl::lookup_result(/*const QHostInfo &host*/)
+/*
+void MainWindowImpl::lookup_result(const QHostInfo &host)
 {
-	/*
 	if (host.error() != QHostInfo::NoError)
 	{
 		//qDebug() << "Lookup failed:" << host.errorString();
@@ -174,8 +172,8 @@ void MainWindowImpl::lookup_result(/*const QHostInfo &host*/)
 		//Recherche de son NetworkID
 		find_mask_and_net_id_from_ip();
 	}
-	*/
 }
+*/
 
 void MainWindowImpl::find_mask_and_net_id_from_ip(NetworksXML& handler)
 {
@@ -285,57 +283,63 @@ void MainWindowImpl::exit_applic() //mwouai, ca serait mieux de se baser sur aut
 
 void MainWindowImpl::on_speedButton_clicked()
 {
-	if(speedButton->text()=="   speed")
+	if(speedButton->text()=="speed")
 	{
-		speedButton->setText("    auto");
-		speedButton->setIcon(QIcon(":/images/green.png"));
+		speedButton->setText("auto");
+		//speedButton->setIcon(QIcon(":/images/green.png"));
+		speedLed->setValue(true);
 	}
-	else if(speedButton->text()=="    auto")
-		speedButton->setText("      10");
-	else if(speedButton->text()=="      10")
-		speedButton->setText("     100");
-	else if(speedButton->text()=="     100")
-		speedButton->setText("    1000");
-	else if(speedButton->text()=="    1000")
+	else if(speedButton->text()=="auto")
+		speedButton->setText("10");
+	else if(speedButton->text()=="10")
+		speedButton->setText("100");
+	else if(speedButton->text()=="100")
+		speedButton->setText("1000");
+	else if(speedButton->text()=="1000")
 	{
-		speedButton->setText("   speed");	// Que faire si on ne choisit rien? "default speed" ou "no speed" ou rien? ==> rien 
-		speedButton->setIcon(QIcon(":/images/red.png"));
+		speedButton->setText("speed");	// Que faire si on ne choisit rien? "default speed" ou "no speed" ou rien? ==> rien 
+		//speedButton->setIcon(QIcon(":/images/red.png"));
+		speedLed->setValue(false);
 	}
 };
 
 void MainWindowImpl::on_duplexButton_clicked()
 {
-	if(duplexButton->text()=="  duplex")
+	if(duplexButton->text()=="duplex")
 	{
-		duplexButton->setText("    auto");
-		duplexButton->setIcon(QIcon(":/images/green.png"));
+		duplexButton->setText("auto");
+		//duplexButton->setIcon(QIcon(":/images/green.png"));
+		duplexLed->setValue(true);
 	}
-	else if(duplexButton->text()=="    auto")
-		duplexButton->setText("    half");
-	else if(duplexButton->text()=="    half")
-		duplexButton->setText("    full");
-	else if(duplexButton->text()=="    full")
+	else if(duplexButton->text()=="auto")
+		duplexButton->setText("half");
+	else if(duplexButton->text()=="half")
+		duplexButton->setText("full");
+	else if(duplexButton->text()=="full")
 	{
-		duplexButton->setText("  duplex"); 
-		duplexButton->setIcon(QIcon(":/images/red.png"));
+		duplexButton->setText("duplex"); 
+		//duplexButton->setIcon(QIcon(":/images/red.png"));
+		duplexLed->setValue(false);
 	}
 };
 
 void MainWindowImpl::on_mediaButton_clicked()
 {
-	if(mediaButton->text()=="   media")
+	if(mediaButton->text()=="media")
 	{
-		mediaButton->setText("    rj45");
-		mediaButton->setIcon(QIcon(":/images/green.png"));
+		mediaButton->setText("rj45");
+		//mediaButton->setIcon(QIcon(":/images/green.png"));
+		mediaLed->setValue(true);
 	}
-	else if(mediaButton->text()=="    rj45")
-		mediaButton->setText("     sfp");
-	else if(mediaButton->text()=="     sfp")
-		mediaButton->setText("    gbic");
-	else if(mediaButton->text()=="    gbic")
+	else if(mediaButton->text()=="rj45")
+		mediaButton->setText("sfp");
+	else if(mediaButton->text()=="sfp")
+		mediaButton->setText("gbic");
+	else if(mediaButton->text()=="gbic")
 	{
-		mediaButton->setText("   media"); 
-		mediaButton->setIcon(QIcon(":/images/red.png"));
+		mediaButton->setText("media"); 
+		//mediaButton->setIcon(QIcon(":/images/red.png"));
+		mediaLed->setValue(false);
 	}
 };
 
