@@ -3,6 +3,7 @@
 //
 #include <QMainWindow>
 #include "ui_mainwindow.h"
+#include "QChooseGUIStyleImpl.h"
 
 #include "editimpl.h" 
 
@@ -40,6 +41,7 @@ protected:
 private slots:
 	void on_action_Plus_triggered();
 	void on_action_Tray_triggered();
+	void on_action_style_triggered();
 	void addLine(QString);
 	void editerX(int);
 	void copierX(int);

@@ -7,6 +7,7 @@ MainWindowImpl::MainWindowImpl( QWidget * parent, Qt::WFlags f) : QMainWindow(pa
 	
 	// Initialisation du System Tray Icon ATTENTION, le faire avant d'ajouter des lignes!
 	initTray();
+	// Configure menu
 	AboutFCImpl *about = new AboutFCImpl;
 	connect(actionAbout_Fast_Clipboard,SIGNAL(triggered()),about,SLOT(show()));
 	connect(actionAbout_Qt, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
@@ -196,6 +197,12 @@ void MainWindowImpl::on_action_Plus_triggered()
 void MainWindowImpl::on_action_Tray_triggered()
 {
 	show_hide();
+}
+
+void MainWindowImpl::on_action_style_triggered()
+{
+	QChooseGUIStyleImpl style;
+	style.exec();
 }
 
 void MainWindowImpl::initTray()
