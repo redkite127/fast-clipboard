@@ -30,11 +30,12 @@
 
 class QColor;
 
-class QDESIGNER_WIDGET_EXPORT QLed : public QWidget
+//class QDESIGNER_WIDGET_EXPORT QLed : public QWidget
+class QLed : public QWidget
 {
  Q_OBJECT
-	Q_PROPERTY(bool value READ value WRITE setValue);
-	Q_PROPERTY(QColor color READ color WRITE setColor);
+	//Q_PROPERTY(bool value READ value WRITE setValue);
+	//Q_PROPERTY(QColor color READ color WRITE setColor);
 
 public: 
     QLed(QWidget *parent = 0);
