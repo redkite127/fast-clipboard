@@ -1,7 +1,5 @@
 <RCC>
   <qresource prefix="images" >
-    <file alias="green.png" >images/green.png</file>
-    <file alias="red.png" >images/red.png</file>
     <file>images/icon/app.ico</file>
     <file>images/icon/colors.png</file>
     <file>images/icon/exit.png</file>

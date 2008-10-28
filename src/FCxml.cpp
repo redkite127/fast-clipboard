@@ -9,6 +9,7 @@
 FCxml::FCxml(QFile *file)
 {
 	loadFile(file);
+	f.setFileName(file->fileName());
 }
 
 void FCxml::lireAll()
@@ -147,16 +148,18 @@ int FCxml::addNode(QString titre,QString texte)
 
 void FCxml::save()
 {
-	QFile file( "pp2DB.xml" );
-	if( !file.open( QIODevice::WriteOnly ) )
-		return;
 
-
-
-	QTextStream ts(&file);
+	// Ouverture  et chargement du fichier
+	if (!f.open(QIODevice::WriteOnly))
+	{
+		qDebug("open2 didn't succeed");
+		//return false;		// FIXME que faire quand lle fichier existe pas ou veut pas s ouvrir?
+	}
+	
+	QTextStream ts(&f);
 //	ts << doc.toString(4);
 	doc.save(ts,4);
-	file.close();
+	f.close();
 	
 	return;
 }

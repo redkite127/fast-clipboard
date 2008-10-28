@@ -34,6 +34,7 @@ public slots:
 
 private:
 	QDomDocument doc;
+	QFile f;
 	// QFile  et QTextStream here?
 };
 #endif

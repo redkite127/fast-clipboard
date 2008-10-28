@@ -2,10 +2,9 @@
 #define MAINWINDOWIMPL_H
 //
 #include <QMainWindow>
-#include "ui_mainwindow.h"
-#include "QChooseGUIStyleImpl.h"
-
-#include "editimpl.h" 
+#include "ui_FastClipboard.h"
+#include "../libs/src/QChooseGUIStyleImpl.h"
+#include "EditImpl.h" 
 
 #include <QPushButton>
 #include <QSignalMapper>
@@ -26,13 +25,12 @@
 #include "aboutFCimpl.h"
 
 //
-class MainWindowImpl : public QMainWindow, public Ui::MainWindow
+class FastClipboardImpl : public QMainWindow, public Ui::FastClipboard
 {
 	Q_OBJECT
 
 public:
-	MainWindowImpl( QWidget * parent = 0, Qt::WFlags f = 0 );
-//	QString lire(int,int);
+	FastClipboardImpl( QWidget * parent = 0, Qt::WFlags f = 0 );
 
 protected:
 	void closeEvent(QCloseEvent *event);
