@@ -11,12 +11,16 @@ HEADERS = src/FastClipboardImpl.h \
  src/NetworksXml.h \
  src/EditImpl.h \
  src/aboutFCimpl.h \
- src/FCxml.h
+ src/FCxml.h \
+ libs/src/qledbutton.h \
+ libs/src/qled.h
 SOURCES = src/FastClipboardImpl.cpp \
  src/main.cpp \
  libs/src/QChooseGUIStyleImpl.cpp \
  src/EditImpl.cpp \
  src/FCxml.cpp \
  src/NetworksXml.cpp \
- src/aboutFCimpl.cpp
+ src/aboutFCimpl.cpp \
+ libs/src/qledbutton.cpp \
+ libs/src/qled.cpp
 RESOURCES += res.qrc

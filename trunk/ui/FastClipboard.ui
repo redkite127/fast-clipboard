@@ -75,14 +75,20 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="QPushButton" name="speedButton" >
+          <widget class="QLedButton" name="speedButton" >
            <property name="enabled" >
             <bool>true</bool>
            </property>
+           <property name="minimumSize" >
+            <size>
+             <width>80</width>
+             <height>22</height>
+            </size>
+           </property>
            <property name="maximumSize" >
             <size>
-             <width>60</width>
-             <height>20</height>
+             <width>80</width>
+             <height>22</height>
             </size>
            </property>
            <property name="font" >
@@ -95,32 +101,8 @@
              <strikeout>false</strikeout>
             </font>
            </property>
-           <property name="layoutDirection" >
-            <enum>Qt::LeftToRight</enum>
-           </property>
-           <property name="autoFillBackground" >
-            <bool>false</bool>
-           </property>
            <property name="text" >
             <string>speed</string>
-           </property>
-           <property name="iconSize" >
-            <size>
-             <width>10</width>
-             <height>10</height>
-            </size>
-           </property>
-           <property name="checkable" >
-            <bool>false</bool>
-           </property>
-           <property name="autoDefault" >
-            <bool>false</bool>
-           </property>
-           <property name="default" >
-            <bool>false</bool>
-           </property>
-           <property name="flat" >
-            <bool>false</bool>
            </property>
           </widget>
          </item>
@@ -266,14 +248,20 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="QPushButton" name="duplexButton" >
+          <widget class="QLedButton" name="duplexButton" >
            <property name="enabled" >
             <bool>true</bool>
            </property>
+           <property name="minimumSize" >
+            <size>
+             <width>80</width>
+             <height>22</height>
+            </size>
+           </property>
            <property name="maximumSize" >
             <size>
-             <width>60</width>
-             <height>20</height>
+             <width>80</width>
+             <height>22</height>
             </size>
            </property>
            <property name="font" >
@@ -295,24 +283,6 @@
            <property name="text" >
             <string>duplex</string>
            </property>
-           <property name="iconSize" >
-            <size>
-             <width>10</width>
-             <height>10</height>
-            </size>
-           </property>
-           <property name="checkable" >
-            <bool>false</bool>
-           </property>
-           <property name="autoDefault" >
-            <bool>false</bool>
-           </property>
-           <property name="default" >
-            <bool>false</bool>
-           </property>
-           <property name="flat" >
-            <bool>false</bool>
-           </property>
           </widget>
          </item>
         </layout>
@@ -323,14 +293,20 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="QPushButton" name="mediaButton" >
+          <widget class="QLedButton" name="mediaButton" >
            <property name="enabled" >
             <bool>true</bool>
            </property>
+           <property name="minimumSize" >
+            <size>
+             <width>80</width>
+             <height>22</height>
+            </size>
+           </property>
            <property name="maximumSize" >
             <size>
-             <width>60</width>
-             <height>20</height>
+             <width>80</width>
+             <height>22</height>
             </size>
            </property>
            <property name="font" >
@@ -352,24 +328,6 @@
            <property name="text" >
             <string>media</string>
            </property>
-           <property name="iconSize" >
-            <size>
-             <width>10</width>
-             <height>10</height>
-            </size>
-           </property>
-           <property name="checkable" >
-            <bool>false</bool>
-           </property>
-           <property name="autoDefault" >
-            <bool>false</bool>
-           </property>
-           <property name="default" >
-            <bool>false</bool>
-           </property>
-           <property name="flat" >
-            <bool>false</bool>
-           </property>
           </widget>
          </item>
         </layout>
@@ -385,14 +343,11 @@
          <property name="maximumSize" >
           <size>
            <width>16777215</width>
-           <height>20</height>
+           <height>22</height>
           </size>
          </property>
          <property name="text" >
           <string>Nom &amp;&amp; IP</string>
-         </property>
-         <property name="autoDefault" >
-          <bool>false</bool>
          </property>
          <property name="default" >
           <bool>true</bool>
@@ -403,7 +358,6 @@
      </widget>
     </item>
    </layout>
-   <zorder>groupBox</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar" >
    <property name="geometry" >
@@ -525,6 +479,13 @@
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QLedButton</class>
+   <extends>QPushButton</extends>
+   <header location="global" >../libs/src/qledbutton.h</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>name</tabstop>
   <tabstop>BBinterface</tabstop>

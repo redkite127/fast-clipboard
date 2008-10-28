@@ -44,6 +44,11 @@ FastClipboardImpl::FastClipboardImpl( QWidget * parent, Qt::WFlags f) : QMainWin
 	//connect(BBinterface,SIGNAL(clicked()),BBinterface,SLOT(selectAll()));
 	name->selectAll();
 	
+	// Adaptation des QLedButton puisque je ne sais pas modifier tout par le designer car c'est seulement un "promote to"
+	speedButton->setLedColor(Qt::darkGreen);
+	duplexButton->setLedColor(Qt::darkGreen);
+	mediaButton->setLedColor(Qt::darkGreen);
+	
 }
 
 void FastClipboardImpl::addLine(QString t)
@@ -290,8 +295,7 @@ void FastClipboardImpl::on_speedButton_clicked()
 	if(speedButton->text()=="speed")
 	{
 		speedButton->setText("auto");
-		//speedButton->setIcon(QIcon(":/images/green.png"));
-		//speedLed->setValue(true);
+		speedButton->setLedValue(true);
 	}
 	else if(speedButton->text()=="auto")
 		speedButton->setText("10");
@@ -302,8 +306,7 @@ void FastClipboardImpl::on_speedButton_clicked()
 	else if(speedButton->text()=="1000")
 	{
 		speedButton->setText("speed");	// Que faire si on ne choisit rien? "default speed" ou "no speed" ou rien? ==> rien 
-		//speedButton->setIcon(QIcon(":/images/red.png"));
-		//speedLed->setValue(false);
+		speedButton->setLedValue(false);
 	}
 };
 
@@ -312,8 +315,7 @@ void FastClipboardImpl::on_duplexButton_clicked()
 	if(duplexButton->text()=="duplex")
 	{
 		duplexButton->setText("auto");
-		//duplexButton->setIcon(QIcon(":/images/green.png"));
-		//duplexLed->setValue(true);
+		duplexButton->setLedValue(true);
 	}
 	else if(duplexButton->text()=="auto")
 		duplexButton->setText("half");
@@ -322,8 +324,7 @@ void FastClipboardImpl::on_duplexButton_clicked()
 	else if(duplexButton->text()=="full")
 	{
 		duplexButton->setText("duplex"); 
-		//duplexButton->setIcon(QIcon(":/images/red.png"));
-		//duplexLed->setValue(false);
+		duplexButton->setLedValue(false);
 	}
 };
 
@@ -332,8 +333,7 @@ void FastClipboardImpl::on_mediaButton_clicked()
 	if(mediaButton->text()=="media")
 	{
 		mediaButton->setText("rj45");
-		//mediaButton->setIcon(QIcon(":/images/green.png"));
-		//mediaLed->setValue(true);
+		mediaButton->setLedValue(true);
 	}
 	else if(mediaButton->text()=="rj45")
 		mediaButton->setText("sfp");
@@ -342,8 +342,7 @@ void FastClipboardImpl::on_mediaButton_clicked()
 	else if(mediaButton->text()=="gbic")
 	{
 		mediaButton->setText("media"); 
-		//mediaButton->setIcon(QIcon(":/images/red.png"));
-		//mediaLed->setValue(false);
+		mediaButton->setLedValue(false);
 	}
 };
 
