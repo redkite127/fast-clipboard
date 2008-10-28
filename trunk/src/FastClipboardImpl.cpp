@@ -1,7 +1,7 @@
-#include "mainwindowimpl.h"
+#include "FastClipboardImpl.h"
 //
 
-MainWindowImpl::MainWindowImpl( QWidget * parent, Qt::WFlags f) : QMainWindow(parent, f)
+FastClipboardImpl::FastClipboardImpl( QWidget * parent, Qt::WFlags f) : QMainWindow(parent, f)
 {
 	setupUi(this);
 	
@@ -14,7 +14,7 @@ MainWindowImpl::MainWindowImpl( QWidget * parent, Qt::WFlags f) : QMainWindow(pa
 		
 	this->nombre = 0;
 	// Lecture du fichier (va le charger dans domDocument)
-	QFile *file= new QFile("pp2DB.xml"); //FIXME pas en hard pleaaaaase ! 
+	QFile *file= new QFile("FastClipboardDB.xml"); //FIXME pas en hard pleaaaaase ! 
 	xmlDoc = new FCxml(file);
 	connect(xmlDoc,SIGNAL(newNode(QString)),this,SLOT(addLine(QString)));
 
@@ -28,7 +28,7 @@ MainWindowImpl::MainWindowImpl( QWidget * parent, Qt::WFlags f) : QMainWindow(pa
 	connect(signalMapper_copy,SIGNAL(mapped(int)),this,SLOT(copierX(int)));
 	
 	/*
-	 * ici, je crécupère le layout central, j'y ajoute un QVBoxLayout et un stretch comme ça je ne me tracasse
+	 * ici, je récupère le layout central, j'y ajoute un QVBoxLayout et un stretch comme ça je ne me tracasse
 	 * pas du stretch par après puisque qu'il est dans le layout central avec un seul objet(le new VBox). C'est
 	 * ce new VBox qui grandi quand j'ajoute des boutons dedans, c'est tout.
 	 */
@@ -46,7 +46,7 @@ MainWindowImpl::MainWindowImpl( QWidget * parent, Qt::WFlags f) : QMainWindow(pa
 	
 }
 
-void MainWindowImpl::addLine(QString t)
+void FastClipboardImpl::addLine(QString t)
 {
 	nombre++;
 
@@ -75,13 +75,10 @@ void MainWindowImpl::addLine(QString t)
 	QAction *act = new QAction(t,this);
 	connect(act,SIGNAL(triggered()),button1,SLOT(click()));
 	QList<QAction *> list = stmenu->actions();	// Pour pouvoir récupérer le before
-	/*list.insert(list.size()-2,act);
-	foreach (QAction *a, list)
-		stmenu->addAction(a);*/
 	stmenu->insertAction(list.at(list.size()-2),act); 
 }
 
-void MainWindowImpl::editerX(int i)
+void FastClipboardImpl::editerX(int i)
 {
 	QStringList r;
 	
@@ -91,10 +88,9 @@ void MainWindowImpl::editerX(int i)
 	//connect(e->buttonBox,SIGNAL(rejected()),this,SLOT(rej()));
 	
 	e->show();
-	
 }
 
-void MainWindowImpl::copierX(int i)
+void FastClipboardImpl::copierX(int i)
 {
 	QStringList r;
 	QClipboard *clipboard = QApplication::clipboard();
@@ -105,7 +101,7 @@ void MainWindowImpl::copierX(int i)
 		clipboard->setText(r.at(1));
 }
 
-void MainWindowImpl::on_lookup_clicked()
+void FastClipboardImpl::on_lookup_clicked()
 {
 	// Recherche de l'adresse de l'host indiqué et stockage dans IP de tmpAddress (QNewtorkAddressEntry)
 	//QHostInfo::lookupHost(name->text(),this, SLOT(lookup_result(QHostInfo)));	// Version qui appelle un slot (c'est donc threadé et ç am arrange pas. faut que j'attende davoir la reponse avant de continuer
@@ -155,8 +151,9 @@ void MainWindowImpl::on_lookup_clicked()
 
 	clipboard->setText(conf);
 }
+
 /*
-void MainWindowImpl::lookup_result(const QHostInfo &host)
+void FastClipboardImpl::lookup_result(const QHostInfo &host)
 {
 	if (host.error() != QHostInfo::NoError)
 	{
@@ -176,7 +173,7 @@ void MainWindowImpl::lookup_result(const QHostInfo &host)
 }
 */
 
-void MainWindowImpl::find_mask_and_net_id_from_ip(NetworksXML& handler)
+void FastClipboardImpl::find_mask_and_net_id_from_ip(NetworksXML& handler)
 {
 	QFile file;
 	QXmlInputSource *inputSource;
@@ -188,24 +185,24 @@ void MainWindowImpl::find_mask_and_net_id_from_ip(NetworksXML& handler)
 	//qDebug()<< tmpAddress.ip().toString() << endl << handler.getNetworkAddress().ip().toString() << handler.getNetworkAddress().netmask().toString() <<endl << handler.getTeamName()<< QHostAddress(handler.getNetworkAddress().ip().toIPv4Address()+1).toString();
 }
 
-void MainWindowImpl::on_action_Plus_triggered()
+void FastClipboardImpl::on_action_Plus_triggered()
 {
 	xmlDoc->addNode();
 	return;
 }
 
-void MainWindowImpl::on_action_Tray_triggered()
+void FastClipboardImpl::on_action_Tray_triggered()
 {
 	show_hide();
 }
 
-void MainWindowImpl::on_action_style_triggered()
+void FastClipboardImpl::on_action_style_triggered()
 {
 	QChooseGUIStyleImpl style;
 	style.exec();
 }
 
-void MainWindowImpl::initTray()
+void FastClipboardImpl::initTray()
 {
 	/*
 	 * Va initialiser et afficher un icone dans le systeme tray
@@ -237,7 +234,7 @@ void MainWindowImpl::initTray()
 	return;
 }
 
-void MainWindowImpl::show_hide()
+void FastClipboardImpl::show_hide()
 {
 	if(this->isHidden())
 	{
@@ -264,7 +261,7 @@ void MainWindowImpl::show_hide()
 	return;
 }
 
-void MainWindowImpl::sticon_dblclicked(QSystemTrayIcon::ActivationReason reason)
+void FastClipboardImpl::sticon_dblclicked(QSystemTrayIcon::ActivationReason reason)
 {
 	if ( reason == 2 || reason == 3 )
 		this->show_hide();
@@ -272,7 +269,7 @@ void MainWindowImpl::sticon_dblclicked(QSystemTrayIcon::ActivationReason reason)
 	return;
 }
 
-void MainWindowImpl::closeEvent(QCloseEvent *event)
+void FastClipboardImpl::closeEvent(QCloseEvent *event)
 {
 	if (sticon->isVisible()) 
 	{
@@ -282,19 +279,19 @@ void MainWindowImpl::closeEvent(QCloseEvent *event)
 	}
 }
 
-void MainWindowImpl::exit_applic() //mwouai, ca serait mieux de se baser sur autre chose que le fait que le tray soit la ou pas
+void FastClipboardImpl::exit_applic() //mwouai, ca serait mieux de se baser sur autre chose que le fait que le tray soit la ou pas
 {
 	sticon->hide();
 	this->close();
 }
 
-void MainWindowImpl::on_speedButton_clicked()
+void FastClipboardImpl::on_speedButton_clicked()
 {
 	if(speedButton->text()=="speed")
 	{
 		speedButton->setText("auto");
 		//speedButton->setIcon(QIcon(":/images/green.png"));
-		speedLed->setValue(true);
+		//speedLed->setValue(true);
 	}
 	else if(speedButton->text()=="auto")
 		speedButton->setText("10");
@@ -306,17 +303,17 @@ void MainWindowImpl::on_speedButton_clicked()
 	{
 		speedButton->setText("speed");	// Que faire si on ne choisit rien? "default speed" ou "no speed" ou rien? ==> rien 
 		//speedButton->setIcon(QIcon(":/images/red.png"));
-		speedLed->setValue(false);
+		//speedLed->setValue(false);
 	}
 };
 
-void MainWindowImpl::on_duplexButton_clicked()
+void FastClipboardImpl::on_duplexButton_clicked()
 {
 	if(duplexButton->text()=="duplex")
 	{
 		duplexButton->setText("auto");
 		//duplexButton->setIcon(QIcon(":/images/green.png"));
-		duplexLed->setValue(true);
+		//duplexLed->setValue(true);
 	}
 	else if(duplexButton->text()=="auto")
 		duplexButton->setText("half");
@@ -326,17 +323,17 @@ void MainWindowImpl::on_duplexButton_clicked()
 	{
 		duplexButton->setText("duplex"); 
 		//duplexButton->setIcon(QIcon(":/images/red.png"));
-		duplexLed->setValue(false);
+		//duplexLed->setValue(false);
 	}
 };
 
-void MainWindowImpl::on_mediaButton_clicked()
+void FastClipboardImpl::on_mediaButton_clicked()
 {
 	if(mediaButton->text()=="media")
 	{
 		mediaButton->setText("rj45");
 		//mediaButton->setIcon(QIcon(":/images/green.png"));
-		mediaLed->setValue(true);
+		//mediaLed->setValue(true);
 	}
 	else if(mediaButton->text()=="rj45")
 		mediaButton->setText("sfp");
@@ -346,7 +343,7 @@ void MainWindowImpl::on_mediaButton_clicked()
 	{
 		mediaButton->setText("media"); 
 		//mediaButton->setIcon(QIcon(":/images/red.png"));
-		mediaLed->setValue(false);
+		//mediaLed->setValue(false);
 	}
 };
 

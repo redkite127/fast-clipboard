@@ -1,6 +1,6 @@
 <ui version="4.0" >
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow" >
+ <class>FastClipboard</class>
+ <widget class="QMainWindow" name="FastClipboard" >
   <property name="geometry" >
    <rect>
     <x>0</x>
@@ -75,38 +75,6 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="QLed" native="1" name="speedLed" >
-           <property name="minimumSize" >
-            <size>
-             <width>20</width>
-             <height>20</height>
-            </size>
-           </property>
-           <property name="maximumSize" >
-            <size>
-             <width>20</width>
-             <height>20</height>
-            </size>
-           </property>
-           <property name="toolTip" >
-            <string>Binary Led</string>
-           </property>
-           <property name="whatsThis" >
-            <string>Led widget</string>
-           </property>
-           <property name="value" stdset="0" >
-            <bool>false</bool>
-           </property>
-           <property name="color" stdset="0" >
-            <color>
-             <red>0</red>
-             <green>122</green>
-             <blue>0</blue>
-            </color>
-           </property>
-          </widget>
-         </item>
-         <item>
           <widget class="QPushButton" name="speedButton" >
            <property name="enabled" >
             <bool>true</bool>
@@ -158,23 +126,8 @@
          </item>
         </layout>
        </item>
-       <item rowspan="3" row="1" column="1" >
+       <item rowspan="2" row="1" column="1" >
         <layout class="QVBoxLayout" name="verticalLayout_2" >
-         <property name="spacing" >
-          <number>4</number>
-         </property>
-         <property name="leftMargin" >
-          <number>2</number>
-         </property>
-         <property name="topMargin" >
-          <number>2</number>
-         </property>
-         <property name="rightMargin" >
-          <number>2</number>
-         </property>
-         <property name="bottomMargin" >
-          <number>4</number>
-         </property>
          <item>
           <widget class="QLabel" name="lookup_status" >
            <property name="maximumSize" >
@@ -233,7 +186,7 @@
             <string>&lt; team ></string>
            </property>
            <property name="alignment" >
-            <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+            <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
            </property>
            <property name="textInteractionFlags" >
             <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
@@ -298,29 +251,10 @@
             <string>&lt; IP ></string>
            </property>
            <property name="alignment" >
-            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+            <set>Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing</set>
            </property>
            <property name="textInteractionFlags" >
             <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="lookup" >
-           <property name="maximumSize" >
-            <size>
-             <width>16777215</width>
-             <height>20</height>
-            </size>
-           </property>
-           <property name="text" >
-            <string>Nom &amp;&amp; IP</string>
-           </property>
-           <property name="autoDefault" >
-            <bool>false</bool>
-           </property>
-           <property name="default" >
-            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -331,38 +265,6 @@
          <property name="spacing" >
           <number>0</number>
          </property>
-         <item>
-          <widget class="QLed" native="1" name="duplexLed" >
-           <property name="minimumSize" >
-            <size>
-             <width>20</width>
-             <height>20</height>
-            </size>
-           </property>
-           <property name="maximumSize" >
-            <size>
-             <width>20</width>
-             <height>20</height>
-            </size>
-           </property>
-           <property name="toolTip" >
-            <string>Binary Led</string>
-           </property>
-           <property name="whatsThis" >
-            <string>Led widget</string>
-           </property>
-           <property name="value" stdset="0" >
-            <bool>false</bool>
-           </property>
-           <property name="color" stdset="0" >
-            <color>
-             <red>0</red>
-             <green>122</green>
-             <blue>0</blue>
-            </color>
-           </property>
-          </widget>
-         </item>
          <item>
           <widget class="QPushButton" name="duplexButton" >
            <property name="enabled" >
@@ -421,38 +323,6 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="QLed" native="1" name="mediaLed" >
-           <property name="minimumSize" >
-            <size>
-             <width>20</width>
-             <height>20</height>
-            </size>
-           </property>
-           <property name="maximumSize" >
-            <size>
-             <width>20</width>
-             <height>20</height>
-            </size>
-           </property>
-           <property name="toolTip" >
-            <string>Binary Led</string>
-           </property>
-           <property name="whatsThis" >
-            <string>Led widget</string>
-           </property>
-           <property name="value" stdset="0" >
-            <bool>false</bool>
-           </property>
-           <property name="color" stdset="0" >
-            <color>
-             <red>0</red>
-             <green>122</green>
-             <blue>0</blue>
-            </color>
-           </property>
-          </widget>
-         </item>
-         <item>
           <widget class="QPushButton" name="mediaButton" >
            <property name="enabled" >
             <bool>true</bool>
@@ -504,10 +374,36 @@
          </item>
         </layout>
        </item>
+       <item row="3" column="1" >
+        <widget class="QPushButton" name="lookup" >
+         <property name="minimumSize" >
+          <size>
+           <width>0</width>
+           <height>22</height>
+          </size>
+         </property>
+         <property name="maximumSize" >
+          <size>
+           <width>16777215</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="text" >
+          <string>Nom &amp;&amp; IP</string>
+         </property>
+         <property name="autoDefault" >
+          <bool>false</bool>
+         </property>
+         <property name="default" >
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
     </item>
    </layout>
+   <zorder>groupBox</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar" >
    <property name="geometry" >
@@ -515,7 +411,7 @@
      <x>0</x>
      <y>0</y>
      <width>223</width>
-     <height>27</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Fichier" >
@@ -629,13 +525,6 @@
    </property>
   </action>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>QLed</class>
-   <extends>QWidget</extends>
-   <header>qled.h</header>
-  </customwidget>
- </customwidgets>
  <tabstops>
   <tabstop>name</tabstop>
   <tabstop>BBinterface</tabstop>

@@ -2,12 +2,9 @@
 #define EDITIMPL_H
 //
 #include <QDialog>
-
-
 #include <QHostInfo>
 
 #include "ui_edit.h"
-
 #include "FCxml.h"
 //
 

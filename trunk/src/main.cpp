@@ -1,11 +1,10 @@
 #include <QApplication>
-#include "mainwindowimpl.h"
-#include "editimpl.h"
+#include "FastClipboardImpl.h"
 //
 int main(int argc, char ** argv)
 {
 	QApplication app( argc, argv );
-	MainWindowImpl win;
+	FastClipboardImpl win;
 	
 	win.show(); 
 	app.connect( &app, SIGNAL( lastWindowClosed() ), &app, SLOT( quit() ) );

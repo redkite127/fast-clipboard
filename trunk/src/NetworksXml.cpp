@@ -65,8 +65,13 @@ bool NetworksXML::endDocument ()
 	
 	return true;
 }
+
 bool NetworksXML::endElement ( const QString & namespaceURI, const QString &localName, const QString & qName )
 {
+	QString s1,s2;
+	
+	s1 = namespaceURI;
+	s2 = localName;
 	
 	balise="";
 		

@@ -1,4 +1,4 @@
-#include "editimpl.h"
+#include "EditImpl.h"
 
 #include <QMessageBox>
 //
