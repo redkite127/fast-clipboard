@@ -37,7 +37,7 @@ FastClipboardImpl::FastClipboardImpl( QWidget * parent, Qt::WFlags f) : QMainWin
 	((QBoxLayout *)this->centralWidget()->layout())->addStretch();
 
 	// Création d'un certain nombre de ligne
-	xmlDoc->lireAll();	// Va lire le fichier xml et chaque fois qu'il trouvera un item, il enverra un signal à addLine avec le titre en paramètre !
+	xmlDoc->lireAll();	// Va lire le fichier xml et chaque fois qu'il trouvera un item, il enverra un signal �  addLine avec le titre en paramètre !
 	
 	// Auto-selection du texte lors du clic sur un LineEdit
 	//connect(name,SIGNAL(clicked()),name,SLOT(selectAll()));
@@ -49,6 +49,8 @@ FastClipboardImpl::FastClipboardImpl( QWidget * parent, Qt::WFlags f) : QMainWin
 	duplexButton->setLedColor(Qt::darkGreen);
 	mediaButton->setLedColor(Qt::darkGreen);
 	
+        // Read settings
+        readSettings();
 }
 
 void FastClipboardImpl::addLine(QString t)
@@ -68,7 +70,7 @@ void FastClipboardImpl::addLine(QString t)
 	hLayout->addWidget(button1);
 	hLayout->addWidget(button2);
 	
-	// Indication du mapping à faire (correspondance objet, information)
+	// Indication du mapping �  faire (correspondance objet, information)
 	signalMapper_copy->setMapping(button1,nombre);
 	signalMapper_edit->setMapping(button2, nombre);
 	
@@ -76,7 +78,7 @@ void FastClipboardImpl::addLine(QString t)
 	connect(button1, SIGNAL(clicked()), signalMapper_copy, SLOT(map()));
 	connect(button2, SIGNAL(clicked()), signalMapper_edit, SLOT(map()));
 
-	// Mise à jour du menu du system Tray
+	// Mise �  jour du menu du system Tray
 	QAction *act = new QAction(t,this);
 	connect(act,SIGNAL(triggered()),button1,SLOT(click()));
 	QList<QAction *> list = stmenu->actions();	// Pour pouvoir récupérer le before
@@ -183,9 +185,9 @@ void FastClipboardImpl::find_mask_and_net_id_from_ip(NetworksXML& handler)
 	QFile file;
 	QXmlInputSource *inputSource;
 	QXmlSimpleReader reader;                 //une interface pour notre parseur
-	file.setFileName("CISCObackbone.xml");         //spécifie le nom du fichier xml à lire
+	file.setFileName("CISCObackbone.xml");         //spécifie le nom du fichier xml �  lire
 	inputSource= new QXmlInputSource(&file); //associe une source xml au fichier
-	reader.setContentHandler(&handler);      //associe l’interface à notre parseur
+	reader.setContentHandler(&handler);      //associe l’interface �  notre parseur
 	reader.parse(inputSource);               //débute la lecture du document xml
 	//qDebug()<< tmpAddress.ip().toString() << endl << handler.getNetworkAddress().ip().toString() << handler.getNetworkAddress().netmask().toString() <<endl << handler.getTeamName()<< QHostAddress(handler.getNetworkAddress().ip().toIPv4Address()+1).toString();
 }
@@ -232,7 +234,7 @@ void FastClipboardImpl::initTray()
 	stmenu->addAction(quit);
 	connect(quit,SIGNAL(triggered()),this,SLOT(exit_applic()));
 	
-	sticon->setContextMenu(stmenu); // On assigne le menu contextuel à l'icône de notification
+	sticon->setContextMenu(stmenu); // On assigne le menu contextuel �  l'icône de notification
 	
 	sticon->show();
 	
@@ -345,5 +347,21 @@ void FastClipboardImpl::on_mediaButton_clicked()
 		mediaButton->setLedValue(false);
 	}
 };
+
+void FastClipboardImpl::readSettings()
+{
+    QSettings settings;
+
+    QString s  = settings.value("style", "NULL").toString();
+    if (s != "NULL")
+        QApplication::setStyle( QStyleFactory::create(s) );
+
+}
+
+void FastClipboardImpl::writeSettings()
+{
+    QSettings settings;
+
+}
 
 //

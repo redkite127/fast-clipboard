@@ -5,6 +5,8 @@
 #include "ui_QChooseGUIStyle.h"
 
 #include <QStyleFactory>
+
+#include <QSettings>
 //
 class QChooseGUIStyleImpl : public QDialog, public Ui::QChooseGUIStyle
 {

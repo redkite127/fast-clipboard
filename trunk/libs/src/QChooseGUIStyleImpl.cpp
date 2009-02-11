@@ -29,8 +29,12 @@ void QChooseGUIStyleImpl::on_tryButton_clicked()
 
 void QChooseGUIStyleImpl::on_keepButton_clicked()
 {
+    QSettings settings;
 	beforeStyle = QApplication::style()->objectName();
 	keepButton->setEnabled(false);
+
+        // Save the style choosed in the conf file
+        settings.setValue("style", QApplication::style()->objectName());
 };
 
 void QChooseGUIStyleImpl::on_quitButton_clicked()
