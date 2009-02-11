@@ -24,6 +24,8 @@
 #include "FCxml.h"
 #include "aboutFCimpl.h"
 
+#include <QSettings>
+
 //
 class FastClipboardImpl : public QMainWindow, public Ui::FastClipboard
 {
@@ -31,6 +33,8 @@ class FastClipboardImpl : public QMainWindow, public Ui::FastClipboard
 
 public:
 	FastClipboardImpl( QWidget * parent = 0, Qt::WFlags f = 0 );
+        void readSettings();
+        void writeSettings();
 
 protected:
 	void closeEvent(QCloseEvent *event);
@@ -60,8 +64,8 @@ private:
 	QMenu *stmenu;					// Menu qui ira avec cet icone (SystemTrayMenu)
 	QVBoxLayout *vLayout;	// nécessaire pour réussir a gérer le stretch en dessous des boutons
 	int nombre;				// indique combien de ligne sont actuellement affichée
-	QSignalMapper *signalMapper_edit;	// Relie le click du bouton editer à la fonction editerX et envoit le numéro de ligne du bouton
-	QSignalMapper *signalMapper_copy;	// Idem mais lie le tout à copierX
+	QSignalMapper *signalMapper_edit;	// Relie le click du bouton editer �  la fonction editerX et envoit le numéro de ligne du bouton
+	QSignalMapper *signalMapper_copy;	// Idem mais lie le tout �  copierX
 	FCxml *xmlDoc;
 	QNetworkAddressEntry tmpAddress; // Ip de l'host trouvé grace au lookup
 	QString tmpTeamName;

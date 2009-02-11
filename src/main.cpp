@@ -3,10 +3,16 @@
 //
 int main(int argc, char ** argv)
 {
-	QApplication app( argc, argv );
-	FastClipboardImpl win;
+    QApplication app( argc, argv );
+    //
+    QApplication::setOrganizationName("Cisco");
+    QApplication::setOrganizationDomain("cisco.com");
+    QApplication::setApplicationName("Fast-Clipboard");
+    // //
+
+    FastClipboardImpl win;
 	
-	win.show(); 
-	app.connect( &app, SIGNAL( lastWindowClosed() ), &app, SLOT( quit() ) );
-	return app.exec();
+    win.show();
+    app.connect( &app, SIGNAL( lastWindowClosed() ), &app, SLOT( quit() ) );
+    return app.exec();
 }

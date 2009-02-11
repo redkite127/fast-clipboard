@@ -24,3 +24,4 @@ SOURCES = src/FastClipboardImpl.cpp \
  libs/src/qledbutton.cpp \
  libs/src/qled.cpp
 RESOURCES += res.qrc
+RC_FILE = myapp.rc
