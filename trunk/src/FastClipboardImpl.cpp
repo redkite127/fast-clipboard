@@ -127,6 +127,8 @@ void FastClipboardImpl::on_lookup_clicked()
 		//qDebug() << "IP : " << tmpAddress.ip().toString() << "/" << tmpShortMask << endl << "Mask : " << tmpAddress.netmask().toString() << endl << "Gateway : " << tmpAddress.broadcast().toString() << endl;
 		lookup_status->setText(tmpTeamName);
 		lookup_status_2->setText(tmpAddress.ip().toString() + QString("/%1").arg(tmpShortMask));
+
+
 	}
 	else
 	{
@@ -348,6 +350,18 @@ void FastClipboardImpl::on_mediaButton_clicked()
 	}
 };
 
+void FastClipboardImpl::resetButtons()
+{
+    speedButton->setText("speed");	// Que faire si on ne choisit rien? "default speed" ou "no speed" ou rien? ==> rien
+    speedButton->setLedValue(false);
+
+    duplexButton->setText("duplex");
+    duplexButton->setLedValue(false);
+
+    mediaButton->setText("media");
+    mediaButton->setLedValue(false);
+}
+
 void FastClipboardImpl::readSettings()
 {
     QSettings settings;
@@ -362,6 +376,11 @@ void FastClipboardImpl::writeSettings()
 {
     QSettings settings;
 
+}
+
+void FastClipboardImpl::on_name_textEdited(QString newName)
+{
+    resetButtons();
 }
 
 //

@@ -57,6 +57,8 @@ private slots:
 	void on_speedButton_clicked();
 	void on_duplexButton_clicked();
 	void on_mediaButton_clicked();
+        void resetButtons();
+        void on_name_textEdited(QString newName);
 	
 private:
 	// Variables :
