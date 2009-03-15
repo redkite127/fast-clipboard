@@ -21,23 +21,23 @@ FastClipboardImpl::FastClipboardImpl( QWidget * parent, Qt::WFlags f) : QMainWin
 	// Quitter le programme par le menu
 	connect(action_Quitter,SIGNAL(triggered()),this,SLOT(exit_applic()));
 	
-	// Création du signalMapper et connection de son signal mapped au slot désiré : http://doc.trolltech.com/qq/qq10-signalmapper.html
+	// Creation du signalMapper et connection de son signal mapped au slot desire : http://doc.trolltech.com/qq/qq10-signalmapper.html
 	signalMapper_edit = new QSignalMapper(this);
 	connect(signalMapper_edit,SIGNAL(mapped(int)),this,SLOT(editerX(int)));
 	signalMapper_copy = new QSignalMapper(this);
 	connect(signalMapper_copy,SIGNAL(mapped(int)),this,SLOT(copierX(int)));
 	
 	/*
-	 * ici, je récupère le layout central, j'y ajoute un QVBoxLayout et un stretch comme ça je ne me tracasse
-	 * pas du stretch par après puisque qu'il est dans le layout central avec un seul objet(le new VBox). C'est
+	 * ici, je recupere le layout central, j'y ajoute un QVBoxLayout et un stretch comme ca je ne me tracasse
+	 * pas du stretch par apres puisque qu'il est dans le layout central avec un seul objet(le new VBox). C'est
 	 * ce new VBox qui grandi quand j'ajoute des boutons dedans, c'est tout.
 	 */
 	vLayout = new QVBoxLayout();
-	((QBoxLayout *)this->centralWidget()->layout())->addLayout(vLayout); // Si on ne crée pas cette relation avec le layout parent, les modifications apportées au fils ne se veront pas dans le parent car il ne se repeindra pas
+((QBoxLayout *)this->centralWidget()->layout())->addLayout(vLayout); // Si on ne cree pas cette relation avec le layout parent, les modifications apportees au fils ne se veront pas dans le parent car il ne se repeindra pas
 	((QBoxLayout *)this->centralWidget()->layout())->addStretch();
 
-	// Création d'un certain nombre de ligne
-	xmlDoc->lireAll();	// Va lire le fichier xml et chaque fois qu'il trouvera un item, il enverra un signal �  addLine avec le titre en paramètre !
+	// Creation d'un certain nombre de ligne
+	xmlDoc->lireAll();	// Va lire le fichier xml et chaque fois qu'il trouvera un item, il enverra un signal a addLine avec le titre en parametre !
 	
 	// Auto-selection du texte lors du clic sur un LineEdit
 	//connect(name,SIGNAL(clicked()),name,SLOT(selectAll()));
@@ -59,7 +59,7 @@ void FastClipboardImpl::addLine(QString t)
 
 	QHBoxLayout *hLayout = new QHBoxLayout();
 	
-	vLayout->addLayout(hLayout);	// Si on ne crée pas cette relation avec le layout parent, les modifications apportées au fils ne se veront pas dans le parent car il ne se repeindra pas
+	vLayout->addLayout(hLayout);	// Si on ne cree pas cette relation avec le layout parent, les modifications apportees au fils ne se veront pas dans le parent car il ne se repeindra pas
 	
 	QPushButton *button1 = new QPushButton(t,centralwidget);
 	
@@ -70,7 +70,7 @@ void FastClipboardImpl::addLine(QString t)
 	hLayout->addWidget(button1);
 	hLayout->addWidget(button2);
 	
-	// Indication du mapping �  faire (correspondance objet, information)
+	// Indication du mapping e faire (correspondance objet, information)
 	signalMapper_copy->setMapping(button1,nombre);
 	signalMapper_edit->setMapping(button2, nombre);
 	
@@ -78,10 +78,10 @@ void FastClipboardImpl::addLine(QString t)
 	connect(button1, SIGNAL(clicked()), signalMapper_copy, SLOT(map()));
 	connect(button2, SIGNAL(clicked()), signalMapper_edit, SLOT(map()));
 
-	// Mise �  jour du menu du system Tray
+	// Mise  a jour du menu du system Tray
 	QAction *act = new QAction(t,this);
 	connect(act,SIGNAL(triggered()),button1,SLOT(click()));
-	QList<QAction *> list = stmenu->actions();	// Pour pouvoir récupérer le before
+	QList<QAction *> list = stmenu->actions();	// Pour pouvoir recuperer le before
 	stmenu->insertAction(list.at(list.size()-2),act); 
 }
 
@@ -110,8 +110,8 @@ void FastClipboardImpl::copierX(int i)
 
 void FastClipboardImpl::on_lookup_clicked()
 {
-	// Recherche de l'adresse de l'host indiqué et stockage dans IP de tmpAddress (QNewtorkAddressEntry)
-	//QHostInfo::lookupHost(name->text(),this, SLOT(lookup_result(QHostInfo)));	// Version qui appelle un slot (c'est donc threadé et ç am arrange pas. faut que j'attende davoir la reponse avant de continuer
+	// Recherche de l'adresse de l'host indique et stockage dans IP de tmpAddress (QNewtorkAddressEntry)
+	//QHostInfo::lookupHost(name->text(),this, SLOT(lookup_result(QHostInfo)));	// Version qui appelle un slot (c'est donc threade et cam arrange pas. faut que j'attende davoir la reponse avant de continuer
 	QHostInfo info = QHostInfo::fromName(name->text());
 	if (!info.addresses().isEmpty())
 	{
@@ -140,10 +140,10 @@ void FastClipboardImpl::on_lookup_clicked()
 	//Comment faire pour attendre que le slot lookup_result soit fini?
 	//qDebug()<< tmpAddress.ip() << endl << tmpAddress.netmask()<<endl<< (tmpAddress.ip().toIPv4Address()&tmpAddress.netmask().toIPv4Address())+1;
 	
-	//Comment faire d'autre ? un XML avec une variable dedans qui serra remplacée? mouais, pas mal
+	//Comment faire d'autre ? un XML avec une variable dedans qui serra remplaceee? mouais, pas mal
 	QString conf;
 	QClipboard *clipboard = QApplication::clipboard();
-	
+
 	conf = "\nconfigure terminal\nhostname " + name->text() + "\n";
 	conf += "default interface " + BBinterface->text() + "\n";
 	conf += "interface " + BBinterface->text() + "\n";
@@ -158,7 +158,64 @@ void FastClipboardImpl::on_lookup_clicked()
 	conf += "ip route 0.0.0.0 0.0.0.0 " + tmpAddress.broadcast().toString() + "\n";
 	conf += "exit\n";
 
+        QFile f("BBconf.conf");
+        conf  = readBBconf(f);
+
+
+
+
+
+
+
+
 	clipboard->setText(conf);
+}
+
+/***
+ *   Read a file which contain the configuration text with some key-words
+ *   that are replaced such as :
+ *   <HOSTNAME>  <BB_IF> <BB_IP> <BB_MASK> <BB_SPEED> <BB_DUPLEX> <BB_MEDIA> <BB_BROADCAST>
+ */
+QString FastClipboardImpl::readBBconf(QFile &file)
+{
+    QString conf;
+
+
+    if ( file.open(QIODevice::ReadOnly) )
+    {
+        QString t;
+
+        while ( !file.atEnd() )
+        {   // Is it faster to make ONE big research(all the text) or PLENTY little research(line per line) ??
+            t = file.readLine();
+            t.replace("<HOSTNAME>", name->text());
+            t.replace("<BB_IF>", BBinterface->text());
+            t.replace("<BB_IP>", tmpAddress.ip().toString());
+            t.replace("<BB_MASK>", tmpAddress.netmask().toString());
+            t.replace("<BB_BROADCAST>", tmpAddress.broadcast().toString());
+            if ( (speedButton->text()=="speed") && t.contains("<BB_SPEED>") )
+                t = "";
+            else
+                t.replace("<BB_SPEED>",  speedButton->text());
+            if ( (duplexButton->text()=="duplex") && t.contains("<BB_DUPLEX>") )
+                t = "";
+            else
+                t.replace("<BB_DUPLEX>",  duplexButton->text());
+            if ( (mediaButton->text()=="media") && t.contains("<BB_MEDIA>") )
+                t = "";
+            else
+                t.replace("<BB_MEDIA>",  mediaButton->text());
+
+            if (t != "")
+                conf += t.simplified() + "\n";
+        }
+
+        file.close();
+    }
+    else
+        this->name->setText("pas de fichier");
+
+    return conf ;
 }
 
 /*
@@ -187,10 +244,10 @@ void FastClipboardImpl::find_mask_and_net_id_from_ip(NetworksXML& handler)
 	QFile file;
 	QXmlInputSource *inputSource;
 	QXmlSimpleReader reader;                 //une interface pour notre parseur
-	file.setFileName("CISCObackbone.xml");         //spécifie le nom du fichier xml �  lire
+	file.setFileName("CISCObackbone.xml");         //specifie le nom du fichier xml a lire
 	inputSource= new QXmlInputSource(&file); //associe une source xml au fichier
-	reader.setContentHandler(&handler);      //associe l’interface �  notre parseur
-	reader.parse(inputSource);               //débute la lecture du document xml
+	reader.setContentHandler(&handler);      //associe lnterface a notre parseur
+	reader.parse(inputSource);               //debute la lecture du document xml
 	//qDebug()<< tmpAddress.ip().toString() << endl << handler.getNetworkAddress().ip().toString() << handler.getNetworkAddress().netmask().toString() <<endl << handler.getTeamName()<< QHostAddress(handler.getNetworkAddress().ip().toIPv4Address()+1).toString();
 }
 
@@ -221,10 +278,10 @@ void FastClipboardImpl::initTray()
 	
 	stmenu = new QMenu(this);
 	
-	QAction *aff_cach = new QAction("Afficher / Cacher",this);		// Crée une action
+	QAction *aff_cach = new QAction("Afficher / Cacher",this);		// Cree une action
 	stmenu->addAction(aff_cach);									// L'ajoute dans un menu
 	stmenu->setDefaultAction(aff_cach);								// Change l'APPARANCE de l'action (en gras) et c'est tout! 
-	connect(aff_cach,SIGNAL(triggered()),this,SLOT(show_hide()));	// Lie l'actionau slot qui affiche/cache la fenêtre principale
+	connect(aff_cach,SIGNAL(triggered()),this,SLOT(show_hide()));	// Lie l'actionau slot qui affiche/cache la fenetre principale
 	
 	stmenu->setSeparatorsCollapsible(false);
 	stmenu->addSeparator();
@@ -236,7 +293,7 @@ void FastClipboardImpl::initTray()
 	stmenu->addAction(quit);
 	connect(quit,SIGNAL(triggered()),this,SLOT(exit_applic()));
 	
-	sticon->setContextMenu(stmenu); // On assigne le menu contextuel �  l'icône de notification
+	sticon->setContextMenu(stmenu); // On assigne le menu contextuel a l'icone de notification
 	
 	sticon->show();
 	
