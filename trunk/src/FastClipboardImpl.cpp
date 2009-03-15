@@ -143,7 +143,7 @@ void FastClipboardImpl::on_lookup_clicked()
 	//Comment faire d'autre ? un XML avec une variable dedans qui serra remplaceee? mouais, pas mal
 	QString conf;
 	QClipboard *clipboard = QApplication::clipboard();
-
+/*
 	conf = "\nconfigure terminal\nhostname " + name->text() + "\n";
 	conf += "default interface " + BBinterface->text() + "\n";
 	conf += "interface " + BBinterface->text() + "\n";
@@ -157,16 +157,9 @@ void FastClipboardImpl::on_lookup_clicked()
 	conf += "no shut\nexit\n";
 	conf += "ip route 0.0.0.0 0.0.0.0 " + tmpAddress.broadcast().toString() + "\n";
 	conf += "exit\n";
-
+*/
         QFile f("BBconf.conf");
         conf  = readBBconf(f);
-
-
-
-
-
-
-
 
 	clipboard->setText(conf);
 }
@@ -213,7 +206,7 @@ QString FastClipboardImpl::readBBconf(QFile &file)
         file.close();
     }
     else
-        this->name->setText("pas de fichier");
+        conf = "BBconf.conf not find";
 
     return conf ;
 }
