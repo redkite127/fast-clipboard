@@ -26,6 +26,7 @@
 
 #include <QSettings>
 
+#include <QFile>
 //
 class FastClipboardImpl : public QMainWindow, public Ui::FastClipboard
 {
@@ -59,17 +60,18 @@ private slots:
 	void on_mediaButton_clicked();
         void resetButtons();
         void on_name_textEdited(QString newName);
+        QString readBBconf(QFile &file);
 	
 private:
 	// Variables :
 	QSystemTrayIcon *sticon;		// L'icone qui va aller dans le systemTray (SystemTrayIcon)
 	QMenu *stmenu;					// Menu qui ira avec cet icone (SystemTrayMenu)
-	QVBoxLayout *vLayout;	// nécessaire pour réussir a gérer le stretch en dessous des boutons
-	int nombre;				// indique combien de ligne sont actuellement affichée
-	QSignalMapper *signalMapper_edit;	// Relie le click du bouton editer �  la fonction editerX et envoit le numéro de ligne du bouton
-	QSignalMapper *signalMapper_copy;	// Idem mais lie le tout �  copierX
+	QVBoxLayout *vLayout;	// necessaire pour reussir a gerer le stretch en dessous des boutons
+	int nombre;				// indique combien de ligne sont actuellement affichee
+	QSignalMapper *signalMapper_edit;	// Relie le click du bouton editer a  la fonction editerX et envoit le numero de ligne du bouton
+	QSignalMapper *signalMapper_copy;	// Idem mais lie le tout e  copierX
 	FCxml *xmlDoc;
-	QNetworkAddressEntry tmpAddress; // Ip de l'host trouvé grace au lookup
+	QNetworkAddressEntry tmpAddress; // Ip de l'host trouve grace au lookup
 	QString tmpTeamName;
 	int tmpShortMask;
 	
