@@ -27,6 +27,8 @@
 #include <QSettings>
 
 #include <QFile>
+
+#include <QCheckBox>
 //
 class FastClipboardImpl : public QMainWindow, public Ui::FastClipboard
 {
@@ -61,6 +63,8 @@ private slots:
         void resetButtons();
         void on_name_textEdited(QString newName);
         QString readBBconf(QFile &file);
+        bool readCheckedX(int);
+        void setCheckX(bool);
 	
 private:
 	// Variables :
@@ -69,7 +73,7 @@ private:
 	QVBoxLayout *vLayout;	// necessaire pour reussir a gerer le stretch en dessous des boutons
 	int nombre;				// indique combien de ligne sont actuellement affichee
 	QSignalMapper *signalMapper_edit;	// Relie le click du bouton editer a  la fonction editerX et envoit le numero de ligne du bouton
-	QSignalMapper *signalMapper_copy;	// Idem mais lie le tout e  copierX
+        QSignalMapper *signalMapper_copy;	// Idem mais lie le tout e  copierX
 	FCxml *xmlDoc;
 	QNetworkAddressEntry tmpAddress; // Ip de l'host trouve grace au lookup
 	QString tmpTeamName;

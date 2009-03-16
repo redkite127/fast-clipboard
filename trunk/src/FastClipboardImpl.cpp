@@ -25,7 +25,9 @@ FastClipboardImpl::FastClipboardImpl( QWidget * parent, Qt::WFlags f) : QMainWin
 	signalMapper_edit = new QSignalMapper(this);
 	connect(signalMapper_edit,SIGNAL(mapped(int)),this,SLOT(editerX(int)));
 	signalMapper_copy = new QSignalMapper(this);
-	connect(signalMapper_copy,SIGNAL(mapped(int)),this,SLOT(copierX(int)));
+        connect(signalMapper_copy,SIGNAL(mapped(int)),this,SLOT(copierX(int)));
+
+
 	
 	/*
 	 * ici, je recupere le layout central, j'y ajoute un QVBoxLayout et un stretch comme ca je ne me tracasse
@@ -66,17 +68,28 @@ void FastClipboardImpl::addLine(QString t)
 	QPushButton *button2 = new QPushButton(QIcon(":/images/images/icon/pencil.png"),QString(""),centralwidget);
 	button2->setMaximumWidth(32);
 	button2->setIconSize(QSize(22,22));
+
+        QCheckBox *checkBox = new QCheckBox(centralwidget);
+        checkBox->setMaximumWidth(18);
+        checkBox->setToolTip("Include this in the\nglobal configuration");
 	
+        hLayout->addWidget(checkBox);
 	hLayout->addWidget(button1);
 	hLayout->addWidget(button2);
-	
-	// Indication du mapping e faire (correspondance objet, information)
-	signalMapper_copy->setMapping(button1,nombre);
+
+        // Indication du mapping a faire (correspondance objet, information)
+        signalMapper_copy->setMapping(button1, nombre);
 	signalMapper_edit->setMapping(button2, nombre);
 	
 	// Lie clicked au mapper
 	connect(button1, SIGNAL(clicked()), signalMapper_copy, SLOT(map()));
 	connect(button2, SIGNAL(clicked()), signalMapper_edit, SLOT(map()));
+
+        checkBox->setProperty("nombre", QVariant(nombre));
+        connect(checkBox, SIGNAL(toggled(bool)), this, SLOT(setCheckX(bool)));
+        QSettings settings;
+        bool b = settings.value(QString("checkBox%1").arg(nombre),"false").toBool();
+        checkBox->setChecked(b);
 
 	// Mise  a jour du menu du system Tray
 	QAction *act = new QAction(t,this);
@@ -147,6 +160,7 @@ void FastClipboardImpl::on_lookup_clicked()
 	conf = "\nconfigure terminal\nhostname " + name->text() + "\n";
 	conf += "default interface " + BBinterface->text() + "\n";
 	conf += "interface " + BBinterface->text() + "\n";
+        conf += "description : To the backbone\n";
 	conf += "ip address " + tmpAddress.ip().toString() + " " + tmpAddress.netmask().toString() + "\n";
 	if ( speedButton->text() != "speed" )
 		conf += "speed " + speedButton->text().simplified() + "\n";
@@ -160,6 +174,23 @@ void FastClipboardImpl::on_lookup_clicked()
 */
         QFile f("BBconf.conf");
         conf  = readBBconf(f);
+
+        // Add checked conf
+        int i = 1;
+        QSettings settings;
+        QStringList r;
+        while (settings.contains(QString("checkBox%1").arg(i)))
+        {
+            if (settings.value(QString("checkBox%1").arg(i)).toBool())
+            {
+                conf += "\n";
+                r=xmlDoc->lireX(i);
+                if(r.size()==2)	//chaque fois verifier que size ok? ...
+                    conf += r.at(1);
+                conf += "\n";
+            }
+            i++;
+        }
 
 	clipboard->setText(conf);
 }
@@ -419,12 +450,26 @@ void FastClipboardImpl::readSettings()
     QString s  = settings.value("style", "NULL").toString();
     if (s != "NULL")
         QApplication::setStyle( QStyleFactory::create(s) );
+}
 
+bool FastClipboardImpl::readCheckedX(int i)
+{
+    QSettings settings;
+
+    return settings.value(QString("checkBox%1").arg(i), "false").toBool();
+}
+
+void FastClipboardImpl::setCheckX(bool b)
+{
+    QSettings settings;
+    int i = sender()->property("nombre").toInt();
+
+    settings.setValue(QString("checkBox%1").arg(i), b);
 }
 
 void FastClipboardImpl::writeSettings()
 {
-    QSettings settings;
+    //QSettings settings;
 
 }
 
