@@ -37,3 +37,4 @@ SOURCES = src/FastClipboardImpl.cpp \
 RESOURCES += res.qrc
 RC_FILE = myapp.rc
 
+include(../Solutions/qtsingleapplication-2.6-opensource/src/qtsingleapplication.pri)

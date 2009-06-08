@@ -53,6 +53,8 @@ FastClipboardImpl::FastClipboardImpl( QWidget * parent, Qt::WFlags f) : QMainWin
 	
         // Read settings
         readSettings();
+
+
 }
 
 void FastClipboardImpl::addLine(QString t)
